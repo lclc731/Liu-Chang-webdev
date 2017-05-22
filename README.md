@@ -1,8 +1,9 @@
-# web-dev-template
+# web-dev
 
-1. git clone https://github.com/jannunzi/web-dev-template.git
-1. cd web-dev-template
-1. npm install
-1. mongod
-1. node server.js
-1. browse to localhost:3000
+I'm Chang Liu, a first year Master student in Computer Science at Northeastern University, Seattle.
+This repository is for CS5610 course
+
+Link for Heroku root:
+Link for my project:
+Link for my assignment:
+
