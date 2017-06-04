@@ -6,10 +6,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // configure a public directory to host static content
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/assignment'));
 
 require ("./test/app.js")(app);
 
-var port = process.env.PORT || 3000;
 
-app.listen(port);
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+});
