@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebAppMaker">
 <head>
     <meta charset="UTF-8">
     <title>CS5610 Web Development</title>
@@ -7,13 +7,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel= "stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
 </head>
 <body>
 
+<div ng-view></div>
+
 <!-- Header -->
 <div class="container-fluid">
-    <h1>ASSIGNMENT 2</h1>
-    <a class="btn btn-primary btn-block" href="login.html">My Assignment</a>
+    <h1>ASSIGNMENT 3</h1>
+    <a class="btn btn-primary btn-block" href="views/user/login.view.client.html">My Assignment</a>
 </div>
 
 <!-- Footer -->
