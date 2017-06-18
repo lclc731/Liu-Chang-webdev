@@ -41,7 +41,7 @@
             var newPage = {
                 _id: newPageId,
                 name: page.name,
-                websiteId: page.websiteId,
+                websiteId: websiteId,
                 description: page.description
             };
             pages.push(newPage);
@@ -72,14 +72,13 @@
             var oldPage = findPageById(pageId);
             var index = pages.indexOf(oldPage);
             pages[index].name = page.name;
-            pages[index].websiteId = page.websiteId;
             pages[index].description = page.description;
         }
 
         function deletePage(pageId) {
             var oldPage = findPageById(pageId);
             var index = pages.indexOf(oldPage);
-            pages.splice(index);
+            pages.splice(index, 1);
         }
     }
 })();

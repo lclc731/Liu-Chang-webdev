@@ -27,9 +27,8 @@
                  developId: "",
                  description: description
              }
-             var userid = $routeParams.uid;
-             WebsiteService.createWebsite(userid, website);
-             $location.url("/user/" + userid + "/website");
+             WebsiteService.createWebsite(vm.uid, website);
+             $location.url("/user/" + vm.uid + "/website");
          }
      }
 
