@@ -10,7 +10,7 @@
                 <a class="cl-text-white navbar-brand cl-text-bold" href="#">
                     Websites
                 </a>
-                <a href="website-new.view.client.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+                <a href="#!/user/{{model.uid}}/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -20,7 +20,7 @@
                 <a class="cl-text-white navbar-brand cl-text-bold" href="#">
                     Edit Websites
                 </a>
-                <a href="#!/user/{{model.uid}}/website" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+                <a ng-click="model.updateWebsite(model.wid, model.name, model.description)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -41,14 +41,17 @@
         <form>
             <div class="form-group">
                 <label for="website-name">Website Name</label>
-                <input type="text" class="form-control" id="website-name" placeholder="Blogger">
+                <input ng-model="model.name"
+                       type="text" class="form-control" id="website-name" placeholder="Blogger">
             </div>
             <div class="form-group">
                 <label for="website-description">Website Description</label>
-                <textarea id="website-description" class="form-control" rows="5"
+                <textarea ng-model="model.description"
+                          id="website-description" class="form-control" rows="5"
                           placeholder="Blog is a blog-publishing service."></textarea>
             </div>
-            <a class="btn btn-danger  btn-block" href="website-list.view.client.html">Delete</a>
+            <a class="btn btn-danger  btn-block"
+               ng-click="model.delectWebsite(model.wid)">Delete</a>
         </form>
     </div>
 </div>

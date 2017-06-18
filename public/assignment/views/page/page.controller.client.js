@@ -9,12 +9,16 @@
         .controller('EditPageController', EditPageController);
 
     function PageListController($routeParams, PageService) {
-        var model = this;
+        var vm = this;
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pages = PageService.findPageByWebsiteId(vm.wid);
+
     }
     function NewPageController($routeParams, PageService) {
-        var model = this;
+        var vm = this;
     }
     function EditPageController($routeParams, PageService) {
-        var model = this;
+        var vm = this;
     }
 })();

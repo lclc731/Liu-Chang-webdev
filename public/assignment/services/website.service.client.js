@@ -8,13 +8,12 @@
     
     function WebsiteService() {
         var websites = [
-            { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
-            { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
+            {_id: "123", name: "Facebook", developerId: "456", description: "Test01"},
+            {_id: "234", name: "Tweeter", developerId: "456", description: "Test02"},
+            {_id: "456", name: "Gizmodo", developerId: "456", description: "Test03"},
+            {_id: "567", name: "Tic Tac Toe", developerId: "123", description: "Test04"},
+            {_id: "678", name: "Checkers", developerId: "123", description: "Test05"},
+            {_id: "789", name: "Chess", developerId: "234", description: "Test06"}
         ];
 
         var services = {
@@ -46,8 +45,8 @@
             var newWebsite = {
                 _id: newWebsiteId,
                 name: website.name,
-                desc: website.desc,
-                developerId: userId
+                developerId: userId,
+                description: website.description
             };
             websites.push(newWebsite);
         }
@@ -75,7 +74,7 @@
             var oldWebsite = findWebsiteById(websiteId);
             var index = websites.indexOf(oldWebsite);
             websites[index].name = website.name;
-            websites[index].desc = website.desc;
+            websites[index].description = website.description;
         }
 
         function deleteWebsite(websiteId) {
@@ -86,7 +85,7 @@
 
         function deleteWebsitesByUser(userId) {
             for (w in websites) {
-                website = websites[w];
+                var website = websites[w];
                 if (website.developerId === userId) {
                     deleteWebsite(website._id);
                 }

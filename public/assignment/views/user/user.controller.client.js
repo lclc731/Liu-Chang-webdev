@@ -65,12 +65,12 @@
 
         function updateUser() {
             var update_user = {
-                _id: $routeParams.userId,
+                _id: $routeParams.uid,
                 firstName: vm.firstName,
                 lastName: vm.lastName,
                 email: vm.email
             };
-            UserService.updateUser($routeParams.userId, update_user);
+            UserService.updateUser($routeParams.uid, update_user);
             vm.updated = "Profile changes saved!";
 
             $timeout(function () {
