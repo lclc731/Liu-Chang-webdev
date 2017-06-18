@@ -4,7 +4,7 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .factory('WidgetService', WebsiteService);
+        .factory('WidgetService', WidgetService);
 
     function WidgetService() {
         var widgets = [
@@ -41,18 +41,53 @@
             return widgets.reduce(getMaxId, 0).toString();
         }
 
-        function createWidget(widget) {
+        function createWidget(pageId, widget) {
             var newWidgetId = getNextId();
             var newWidget = {
-                _id: newUserId,
-                username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email
+                _id: newWidgetId,
+                widgetType: widget.widgetType,
+                pageId: pageId,
+                size: widget.size,
+                text: widget.text
             };
-            users.push(newUser);
+            widgets.push(newWidget);
         }
+
+        function findWidgetsByPageId(pageId) {
+            var results = [];
+            for (wi in widgets) {
+                var widget = widgets[wi];
+                if (parseInt(widget.pageId) === parseInt(pageId)) {
+                    results.push(widget);
+                }
+            }
+            return results;
+        }
+
+        function findWidgetById(widgetId) {
+            for (wi in widgets) {
+                var widget = widgets[wi];
+                if (parseInt(widget._id) === parseInt(widgetId)) {
+                    return widget;
+                }
+            }
+            return null;
+        }
+
+        function updateWidget(widgetId, widget) {
+            var oldWidget = findWidgetById(widgetId);
+            var index = widgets.indexOf(oldWidget);
+            widgets[index].widgetType = widget.widgetType;
+            widgets[index].size = widget.size;
+            widgets[index].text = widget.text;
+        }
+
+        function deleteWidget(widgetId) {
+            var oldWidget = findWidgetById(widgetId);
+            var index = widgets.indexOf(oldWidget);
+            widgets.splice(index, 1);
+        }
+
     }
 
 })();

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </div>
+
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            Choose Widget
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid cl-container-padding">
+    <ul class="list-group cl-list-group-borderless">
+        <li class="list-group-item cl-list-item-borderless">
+            <a ng-click="model.newHeadingWidget(model.pid)">Header</a>
+        </li>
+        <li class="list-group-item cl-list-item-borderless">
+            <a ng-click="model.newImageWidget(model.pid)">Image</a>
+        </li>
+        <li class="list-group-item cl-list-item-borderless">
+            <a ng-click="model.newYoutubeWidget(model.pid)">YouTube</a>
+        </li>
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid row">
+        <div class="pull-right navbar-text">
+            <a href="#!/user/{{model.uid}}" class="cl-icon-padding">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>

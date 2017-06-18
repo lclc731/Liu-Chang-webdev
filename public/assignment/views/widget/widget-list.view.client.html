@@ -1,0 +1,74 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="#!/user/{{model.uid}}" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new" class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-plus">
+          </span>
+            </a>
+        </div>
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            Widgets
+        </a>
+    </div>
+</nav>
+
+<div class="container cl-container-padding">
+
+    <div ng-repeat="widget in model.widgets">
+        <div class="pull-right">
+            <a href="#" class="pull-right">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}">
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+        </div>
+
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADING">
+                <div ng-include="'views/widget/widget-heading.view.client.html'"></div>
+            </div>
+
+            <div ng-switch-when="IMAGE">
+                <div ng-include="'views/widget/widget-image.view.client.html'"></div>
+            </div>
+
+            <div ng-switch-when="HTML" ng-bind-html="model.trust(widget.text)">
+                {{widget.text}}
+            </div>
+
+            <div ng-switch-when="YOUTUBE">
+                <div ng-include="'views/widget/widget-image.view.client.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid row">
+        <div class="pull-right navbar-text">
+
+            <a href="#!/user/{{model.uid}}" class="cl-icon-padding">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+
+        </div>
+
+        <div class="pull-left navbar-text">
+            <a href="#" class="cl-icon-padding">
+                <span class="glyphicon glyphicon-play"></span>
+            </a>
+            <a href="#" class="cl-icon-padding">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+
+        </div>
+    </div>
+</nav>
