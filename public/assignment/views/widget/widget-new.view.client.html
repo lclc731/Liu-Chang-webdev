@@ -21,7 +21,6 @@
 </nav>
 
 <div ng-switch="model.widgetType" class="container">
-    {{model.createError}}
     <div ng-switch-when="HEADING">
         <div ng-include="'views/widget/widget-heading-edit.view.client.html'"></div>
     </div>
