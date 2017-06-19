@@ -2,7 +2,7 @@
     <div class="container-fluid row">
 
         <div class="navbar-text pull-left">
-            <a href="#!/user/{{model.uid}}" class="cl-text-black cl-icon-padding">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="cl-text-black cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
@@ -45,7 +45,7 @@
             </div>
 
             <div ng-switch-when="YOUTUBE">
-                <div ng-include="'views/widget/widget-image.view.client.html'"></div>
+                <div ng-include="'views/widget/widget-youtube.view.client.html'"></div>
             </div>
         </div>
     </div>

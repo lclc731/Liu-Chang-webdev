@@ -36,7 +36,7 @@
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
-        vm.pid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
 
@@ -49,8 +49,8 @@
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
         }
 
-        function deletePage(pageId) {
-            PageService.deletePage(pageId);
+        function deletePage() {
+            PageService.deletePage(vm.pid);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
         }
     }

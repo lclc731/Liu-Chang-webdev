@@ -54,7 +54,7 @@
         }
     }
 
-    function ProfileController($routeParams, $location, $timeout, UserService) {
+    function ProfileController($routeParams, $timeout, UserService) {
         var vm = this;
         vm.user = UserService.findUserById($routeParams.uid);
         vm.username = vm.user.username;
