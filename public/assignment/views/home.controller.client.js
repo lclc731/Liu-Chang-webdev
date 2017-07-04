@@ -6,6 +6,8 @@
         .module("WebAppMaker")
         .controller("HomeController", HomeController);
 
-    var vm = this;
+    function HomeController($location) {
+        var vm = this;
+    }
 
 })();
