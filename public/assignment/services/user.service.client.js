@@ -7,13 +7,6 @@
         .factory('UserService', UserService);
 
     function UserService($http) {
-        var users = [
-            {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder" },
-            {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley" },
-            {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia" },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi" }
-        ];
-
         var services = {
             "createUser": createUser,
             "findUserById": findUserById,
@@ -23,19 +16,6 @@
             "deleteUser": deleteUser
         };
         return services;
-
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-
-            return users.reduce(getMaxId, 0).toString();
-        }
 
         function createUser(user) {
             var url = "/api/user/";

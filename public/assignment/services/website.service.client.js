@@ -6,7 +6,7 @@
         .module("WebAppMaker")
         .factory('WebsiteService', WebsiteService);
     
-    function WebsiteService() {
+    function WebsiteService($http) {
         var websites = [
             {_id: "123", name: "Facebook", developerId: "456", description: "Test01"},
             {_id: "234", name: "Tweeter", developerId: "456", description: "Test02"},
@@ -22,8 +22,7 @@
             "findAllWebsitesForUser": findAllWebsitesForUser,
             "findWebsiteById": findWebsiteById,
             "updateWebsite": updateWebsite,
-            "deleteWebsite": deleteWebsite,
-            "deleteWebsitesByUser": deleteWebsitesByUser
+            "deleteWebsite": deleteWebsite
         };
         return services;
 
@@ -41,55 +40,44 @@
         }
 
         function createWebsite(userId, website) {
-            var newWebsiteId = getNextId();
-            var newWebsite = {
-                _id: newWebsiteId,
-                name: website.name,
-                developerId: userId,
-                description: website.description
-            };
-            websites.push(newWebsite);
+            var url = "/api/user/" + userId + "/website";
+            return $http.post(url, website)
+                .then(function (response) {
+                    return response.data;
+                });
         }
         
         function findAllWebsitesForUser(userId) {
-            var results = [];
-            for (var v in websites) {
-                if (websites[v].developerId === userId) {
-                    results.push(websites[v]);
-                }
-            }
-            return results;
+            var url = "/api/user/" + userId + "/website";
+            return $http.get(url)
+                        .then(function (response) {
+                            return response.data;
+                        });
         }
 
         function findWebsiteById(websiteId) {
-            for (var v in websites) {
-                if (websites[v]._id === websiteId) {
-                    return websites[v];
-                }
-            }
-            return null;
+            var url = "/api/website/" + websiteId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function updateWebsite(websiteId, website) {
-            var oldWebsite = findWebsiteById(websiteId);
-            var index = websites.indexOf(oldWebsite);
-            websites[index].name = website.name;
-            websites[index].description = website.description;
+            var url = "/api/website/" + websiteId;
+            return $http.put(url, website)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function deleteWebsite(websiteId) {
-            var oldWebsite = findWebsiteById(websiteId);
-            var index = websites.indexOf(oldWebsite);
-            websites.splice(index, 1);
+            var url = "/api/website/" + websiteId;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
-        function deleteWebsitesByUser(userId) {
-            for (w in websites) {
-                var website = websites[w];
-                if (website.developerId === userId) {
-                    deleteWebsite(website._id);
-                }
-            }
-        }
     }
 })();
