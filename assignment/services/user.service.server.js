@@ -12,7 +12,7 @@ var users = [
 
 // GET Calls.
 //app.get('/api/user?username=username', findUserByUsername);
-app.get('/api/user', findUserByCredentials);
+app.get('/api/user', findUserAllUser);
 app.get('/api/user/:uid', findUserById);
 
 // POST Calls.
@@ -30,7 +30,7 @@ function createUsers(req, res) {
     var user = req.body;
 
     var newUser = {
-        _id: new Date().getTime(),
+        _id: (new Date()).getTime() + "",
         username: user.username,
         password: user.password,
         firstName: user.firstName,
@@ -41,41 +41,36 @@ function createUsers(req, res) {
 
     if(newUser){
         res.status(200).send(newUser);
+        return;
     } else {
-        res.sendStatus(500);
+        res.status(500);
+        return;
     }
 }
 
-function findUserByUsername (req, res) {
+function findUserAllUser (req, res) {
     var username = req.query.username;
-
-    for (u in users){
-        var user = users[u];
-        if(user.username === username){
-            res.status(200).send(user);
+    var password = req.query.password;
+    if (username && password) {
+        var user = users.find(function (u) { return u.username===username && u.password===password  });
+        if(user) {
+            res.send(user);
+            return;
+        } else {
+            res.send(null);
+            return;
+        }
+    } else if (username) {
+        var user = users.find(function (u) { return u.username===username });
+        if (user) {
+            res.send(user);
+            return;
+        } else {
+            res.status(404);
             return;
         }
     }
-    res.status(404).send("not found!");
-}
 
-function findUserByCredentials (req, res) {
-    var username = req.query.username;
-    var password = req.query.password;
-
-    // for (var u in users) {
-    //     var user = users[u];
-    //     if (user.username === username && user.password === password) {
-    //         res.send(user);
-    //     }
-    // }
-
-    var user = users.find(function (u) { return u.username===username && u.password===password  });
-    if(user) {
-        res.send(user);
-    } else {
-        res.send(null);
-    }
 }
 
 function findUserById(req, res) {
@@ -83,13 +78,15 @@ function findUserById(req, res) {
     var user = users.find(function (u) { return u._id==uid });
     if(user) {
         res.send(user);
+        return;
     } else {
         res.status(404).send("not found!");
+        return;
     }
 }
 
 function updateUser(req, res) {
-    var uid = req.params.id;
+    var uid = req.params.uid;
     var new_user = req.body;
 
     for (u in users){
@@ -106,7 +103,7 @@ function updateUser(req, res) {
 }
 
 function deleteUser(req, res) {
-    var uid = req.params.id;
+    var uid = req.params.uid;
 
     for (u in users){
         var user = users[u];

@@ -38,16 +38,11 @@
         }
 
         function createUser(user) {
-            var newUserId = getNextId();
-            var newUser = {
-                _id: newUserId,
-                username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email
-            };
-            users.push(newUser);
+            var url = "/api/user/";
+            return $http.post(url, user)
+                        .then(function (response) {
+                            return response.data;
+                        });
         }
 
         function findUserById(userId) {
@@ -60,13 +55,11 @@
         }
 
         function findUserByUsername(username) {
-            for (u in users) {
-                var user = users[u];
-                if (user.username === username) {
-                    return user;
-                }
-            }
-            return null;
+            var url = "/api/user?username=" + username;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findUserByCredentials(username, password) {
@@ -78,17 +71,19 @@
         }
 
         function updateUser(userId, user) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users[index].firstName = user.firstName;
-            users[index].lastName = user.lastName;
-            users[index].email = user.email;
+            var url = "/api/user/" + userId;
+            return $http.put(url, user)
+                        .then(function (response) {
+                            return response.data;
+                        });
         }
 
         function deleteUser(userId) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users.splice(index);
+            var url = "/api/user/" + userId;
+            return $http.delete(url)
+                        .then(function (response) {
+                            return response.data;
+                        });
         }
     }
 })();

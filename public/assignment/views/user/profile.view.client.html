@@ -3,7 +3,7 @@
         <a class="cl-text-white navbar-brand cl-text-bold" href="#">
             Profile
         </a>
-        <a ng-click="model.updateUser()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a ng-click="model.updateUser(model.user)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
@@ -22,6 +22,8 @@
         <input ng-model="model.user.lastName" type="text" class="form-control" placeholder="last name" id="lName" required>
     </form>
 
+    <a ng-click="model.updateUser(model.user)" class="btn btn-success btn-block">Update</a>
+    <a ng-click="model.deleteUser(model.user)" class="btn btn-danger btn-block">Delete</a>
     <a href="#!/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
     <a href="#!/login" class="btn btn-danger btn-block">Logout</a>
 </div>

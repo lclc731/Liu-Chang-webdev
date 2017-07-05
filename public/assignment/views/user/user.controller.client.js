@@ -38,26 +38,31 @@
                 vm.error = "Password does not match.";
                 return;
             }
-            var user = UserService.findUserByUsername(username);
-            if (user === null) {
-                user = {
-                    username: username,
-                    password: password,
-                    firstName: "",
-                    lastName: "",
-                    email: ""
-                };
-                UserService.createUser(user);
-                user = UserService.findUserByUsername(username);
-                $location.url("/user/" + user._id);
-            }
-            else {
-                vm.error = "Username already exists.";
-            }
+            UserService
+                .findUserByUsername(username)
+                .then(
+                    function () {
+                        vm.error = "Username already exists.";
+                    },
+                    function () {
+                        var user = {
+                            username: username,
+                            password: password,
+                            firstName: "",
+                            lastName: "",
+                            email: ""
+                        };
+                        return UserService
+                            .createUser(user);
+                    }
+                )
+                .then(function (newUser) {
+                    $location.url("/user/" + newUser._id);
+                });
         }
     }
 
-    function ProfileController($routeParams, $timeout, UserService) {
+    function ProfileController($routeParams, $timeout, UserService, $location) {
         var vm = this;
         UserService.findUserById($routeParams.uid)
                    .then(renderUser);
@@ -68,19 +73,29 @@
 
 
         vm.updateUser = updateUser;
-        function updateUser() {
-            var update_user = {
-                _id: $routeParams.uid,
-                firstName: vm.user.firstName,
-                lastName: vm.user.lastName,
-                email: vm.user.email
-            };
-            UserService.updateUser($routeParams.uid, update_user);
+        vm.deleteUser = deleteUser;
+
+        function updateUser(user) {
+
+            UserService
+                .updateUser(user._id, user)
+                .then(function (newUser) {
+                $location.url("/user/" + newUser._id);
+            });
             vm.updated = "Profile changes saved!";
 
             $timeout(function () {
                 vm.updated = null;
             }, 3000);
+        }
+
+        function deleteUser(user) {
+            UserService
+                .deleteUser(user._id)
+                .then(function () {
+                    $location.url("/login");
+                });
+
         }
     }
 
