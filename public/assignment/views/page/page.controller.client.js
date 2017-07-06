@@ -12,7 +12,10 @@
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
-        vm.pages = PageService.findPageByWebsiteId(vm.wid);
+        PageService.findPageByWebsiteId(vm.wid)
+                   .then(function (pages) {
+                       vm.pages = pages;
+                   })
     }
 
     function NewPageController($routeParams, PageService, $location) {
@@ -26,8 +29,11 @@
                 name: name,
                 description: description
             }
-            PageService.createPage(vm.wid, page);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+            PageService
+                .createPage(vm.wid, page)
+                .then(function () {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                })
         }
     }
 
@@ -45,13 +51,19 @@
                 name: name,
                 description: description
             }
-            PageService.updatePage(vm.pid, page);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+            PageService
+                .updatePage(vm.pid, page)
+                .then(function () {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                })
         }
 
         function deletePage() {
-            PageService.deletePage(vm.pid);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+            PageService
+                .deletePage(vm.pid)
+                .then(function () {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                })
         }
     }
 })();

@@ -6,7 +6,7 @@
         .module("WebAppMaker")
         .factory('PageService', PageService);
 
-    function PageService() {
+    function PageService($http) {
 
         var services = {
             "createPage": createPage,
@@ -32,48 +32,43 @@
         }
 
         function createPage(websiteId, page) {
-            var newPageId = getNextId();
-            var newPage = {
-                _id: newPageId,
-                name: page.name,
-                websiteId: websiteId,
-                description: page.description
-            };
-            pages.push(newPage);
+            var url = "/api/website/" + websiteId + "/page";
+            return $http.post(url, page)
+                        .then(function (response) {
+                            return response.data;
+                        });
         }
 
         function findPageByWebsiteId(websiteId) {
-            var results = [];
-            for (p in pages) {
-                var page = pages[p];
-                if (parseInt(page.websiteId) === parseInt(websiteId)) {
-                    results.push(page);
-                }
-            }
-            return results;
+            var url = "/api/website/" + websiteId + "/page";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findPageById(pageId) {
-            for (p in pages) {
-                var page = pages[p];
-                if (parseInt(page._id) === parseInt(pageId)) {
-                    return page;
-                }
-            }
-            return null;
+            var url = "/api/page/" + pageId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function updatePage(pageId, page) {
-            var oldPage = findPageById(pageId);
-            var index = pages.indexOf(oldPage);
-            pages[index].name = page.name;
-            pages[index].description = page.description;
+            var url = "/api/page/" + pageId;
+            return $http.put(url, page)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function deletePage(pageId) {
-            var oldPage = findPageById(pageId);
-            var index = pages.indexOf(oldPage);
-            pages.splice(index, 1);
+            var url = "/api/page/" + pageId;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();
