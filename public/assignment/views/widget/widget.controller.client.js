@@ -23,6 +23,13 @@
 
         vm.trust = trust;
         vm.getYoutubeEmbedUrl = getYoutubeEmbedUrl;
+        vm.callback = callback;
+
+        function callback(start, end) {
+            WidgetService
+                .sortWidgets(start, end, vm.pid)
+                .then($location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget"));
+        }
 
         function trust(html) {
             return $sce.trustAsHtml(html);

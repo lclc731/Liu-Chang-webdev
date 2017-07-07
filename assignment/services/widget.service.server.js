@@ -23,6 +23,7 @@ app.get('/api/widget/:widgetId',findWidgetById);
 
 //PUT Calls
 app.put('/api/widget/:widgetId',updateWidget);
+app.put('/page/:pageId/widget?initial=:index1&final=:index2',sortWidgets);
 
 //DELETE Calls
 app.delete('/api/widget/:widgetId',deleteWidget);
@@ -104,4 +105,29 @@ function deleteWidget(req, res) {
         }
     }
     res.sendStatus(404);
+}
+
+function sortWidgets(req, res) {
+    var pageId = req.params.pageId;
+    var start = req.query.index1;
+    var end = req.query.index2;
+
+    var widgetsArr = [];
+    for (wi in widgets) {
+        var widget = widgets[wi];
+        if (parseInt(widget.pageId) === parseInt(pageId)) {
+            widgetsArr.push(widget);
+        }
+    }
+
+    widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
+
+    var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
+    widgetsArr.splice(end, 0, widgetToBeMoved);
+
+    for (wi in widgetsArr) {
+        widgets.push(widgetsArr[wi]);
+    }
+
+    res.sendStatus(200);
 }

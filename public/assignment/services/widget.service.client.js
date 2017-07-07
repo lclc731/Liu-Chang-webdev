@@ -158,6 +158,15 @@
                 });
         }
 
+        function sortWidgets(index1, index2, pageId) {
+            var url = "/page/" + pageId + "widget?initial=" + index1 + "&final=" + index2;
+            return $http.put(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+
         function deleteWidgetsByPage(pageId) {
             for (wid in widgets) {
                 widget = widgets[wid];
