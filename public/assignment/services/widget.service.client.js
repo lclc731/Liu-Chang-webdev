@@ -27,7 +27,8 @@
             'findWidgetById': findWidgetById,
             'updateWidget': updateWidget,
             'deleteWidget': deleteWidget,
-            'deleteWidgetsByPage': deleteWidgetsByPage
+            'deleteWidgetsByPage': deleteWidgetsByPage,
+            'reorderWidgets': reorderWidgets
         };
         return services;
 
@@ -158,15 +159,6 @@
                 });
         }
 
-        function sortWidgets(index1, index2, pageId) {
-            var url = "/page/" + pageId + "widget?initial=" + index1 + "&final=" + index2;
-            return $http.put(url)
-                .then(function (response) {
-                    return response.data;
-                });
-        }
-
-
         function deleteWidgetsByPage(pageId) {
             for (wid in widgets) {
                 widget = widgets[wid];
@@ -174,6 +166,14 @@
                     deleteWidget(widget._id);
                 }
             }
+        }
+        
+        function reorderWidgets(pageId, start, end) {
+            var url = "/api/page/" + pageId + "/widget?initial=" + start + "&final=" + end;
+            return $http.put(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();

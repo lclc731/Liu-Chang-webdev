@@ -26,7 +26,7 @@ app.get('/api/widget/:widgetId',findWidgetById);
 
 //PUT Calls
 app.put('/api/widget/:widgetId',updateWidget);
-app.put('/page/:pageId/widget?initial=:index1&final=:index2',sortWidgets);
+app.put('/api/page/:pageId/widget',reorderWidgets);
 
 //DELETE Calls
 app.delete('/api/widget/:widgetId',deleteWidget);
@@ -110,29 +110,36 @@ function deleteWidget(req, res) {
     res.sendStatus(404);
 }
 
-function sortWidgets(req, res) {
+function reorderWidgets(req, res) {
     var pageId = req.params.pageId;
-    var start = req.query.index1;
-    var end = req.query.index2;
-
-    var widgetsArr = [];
+    var pageWidgets = [];
     for (wi in widgets) {
         var widget = widgets[wi];
         if (parseInt(widget.pageId) === parseInt(pageId)) {
-            widgetsArr.push(widget);
+            pageWidgets.push(widget);
         }
     }
+    console.log("begin sort!2");
 
-    widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
+    var index1 = req.query.initial;
+    var index2 = req.query.final;
 
-    var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
-    widgetsArr.splice(end, 0, widgetToBeMoved);
+    var initial = widgets.indexOf(pageWidgets[index1]);
+    var final = widgets.indexOf(pageWidgets[index2]);
 
-    for (wi in widgetsArr) {
-        widgets.push(widgetsArr[wi]);
+
+    if (index1 && index2) {
+        if (final >= widgets.length) {
+            var k = final - widgets.length;
+            while ((k--) + 1) {
+                widgets.push(undefined);
+            }
+        }
+        widgets.splice(final, 0, widgets.splice(initial, 1)[0]);
+        res.sendStatus(200);
+        return;
     }
-
-    res.sendStatus(200);
+    res.status(404).send("Cannot reorder widgets");
 }
 
 function uploadImage(req, res) {

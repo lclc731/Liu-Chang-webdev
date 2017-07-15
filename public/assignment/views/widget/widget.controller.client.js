@@ -9,7 +9,7 @@
             .controller("CreateWidgetController", CreateWidgetController)
             .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController($routeParams, WidgetService, $sce) {
+    function WidgetListController($routeParams, WidgetService, $sce, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -23,13 +23,7 @@
 
         vm.trust = trust;
         vm.getYoutubeEmbedUrl = getYoutubeEmbedUrl;
-        vm.callback = callback;
-
-        function callback(start, end) {
-            WidgetService
-                .sortWidgets(start, end, vm.pid)
-                .then($location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget"));
-        }
+        vm.sortWidgets = sortWidgets;
 
         function trust(html) {
             return $sce.trustAsHtml(html);
@@ -40,6 +34,15 @@
             var linkUrlParts = linkUrl.split('/');
             embedUrl += linkUrlParts[linkUrlParts.length - 1];
             return $sce.trustAsResourceUrl(embedUrl);
+        }
+        
+        function sortWidgets(start, end) {
+            WidgetService
+                .reorderWidgets(vm.pid, start, end)
+                .then(function () {
+                $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+            });
+
         }
     }
 
