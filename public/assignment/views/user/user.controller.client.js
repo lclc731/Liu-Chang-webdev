@@ -38,27 +38,36 @@
                 vm.error = "Password does not match.";
                 return;
             }
+            var user = {
+                username: username,
+                password: password,
+                firstName: "",
+                lastName: "",
+                email: ""
+            }
             UserService
-                .findUserByUsername(username)
-                .then(
-                    function () {
-                        vm.error = "Username already exists.";
-                    },
-                    function () {
-                        var user = {
-                            username: username,
-                            password: password,
-                            firstName: "",
-                            lastName: "",
-                            email: ""
-                        };
-                        return UserService
-                            .createUser(user);
-                    }
-                )
+                .createUser(user)
                 .then(function (newUser) {
                     $location.url("/user/" + newUser._id);
                 });
+                // .findUserByUsername(username)
+                // .then(
+                //     function () {
+                //         vm.error = "Username already exists.";
+                //     },
+                //     function () {
+                //         var user = {
+                //             username: username,
+                //             password: password,
+                //             firstName: "",
+                //             lastName: "",
+                //             email: ""
+                //         };
+                //         return UserService
+                //             .createUser(user);
+                //     }
+                // )
+
         }
     }
 
