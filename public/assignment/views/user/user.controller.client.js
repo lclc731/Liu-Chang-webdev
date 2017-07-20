@@ -50,23 +50,6 @@
                 .then(function (newUser) {
                     $location.url("/user/" + newUser._id);
                 });
-                // .findUserByUsername(username)
-                // .then(
-                //     function () {
-                //         vm.error = "Username already exists.";
-                //     },
-                //     function () {
-                //         var user = {
-                //             username: username,
-                //             password: password,
-                //             firstName: "",
-                //             lastName: "",
-                //             email: ""
-                //         };
-                //         return UserService
-                //             .createUser(user);
-                //     }
-                // )
 
         }
     }
@@ -88,10 +71,13 @@
 
             UserService
                 .updateUser(user._id, user)
-                .then(function (newUser) {
-                $location.url("/user/" + newUser._id);
-            });
-            vm.updated = "Profile changes saved!";
+                .then(
+                    function (status) {
+                        if (status) {
+                            vm.updated = "Profile changes saved!";
+                        }
+                    });
+
 
             $timeout(function () {
                 vm.updated = null;

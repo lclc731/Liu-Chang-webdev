@@ -18,7 +18,7 @@
         return services;
 
         function createUser(user) {
-            var url = "/api/user/";
+            var url = "/api/user";
             return $http.post(url, user)
                         .then(function (response) {
                             return response.data;
