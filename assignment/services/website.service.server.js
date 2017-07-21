@@ -2,20 +2,19 @@
  * Created by ChangLiu on 7/4/17.
  */
 module.exports = function(app, models) {
-
     var websites = [];
 
-//POST Calls
+    //POST Calls
     app.post('/api/user/:userId/website', createWebsite);
 
-//GET Calls
+    //GET Calls
     app.get('/api/user/:userId/website', findAllWebsitesForUser);
     app.get('/api/website/:websiteId', findWebsiteById);
 
-//PUT Calls
+    //PUT Calls
     app.put('/api/website/:websiteId', updateWebsite);
 
-//DELETE Calls
+    //DELETE Calls
     app.delete('/api/website/:websiteId', deleteWebsite);
 
 

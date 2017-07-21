@@ -9,17 +9,17 @@ module.exports = function(app, models) {
         {_id: "543", name: "Post 3", websiteId: "456", description: "Lorem"}
     ];
 
-//POST Calls
+    //POST Calls
     app.post('/api/website/:websiteId/page', createPage);
 
-//GET Calls
+    //GET Calls
     app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
     app.get('/api/page/:pageId', findPageById);
 
-//PUT Calls
+    //PUT Calls
     app.put('/api/page/:pageId', updatePage);
 
-//DELETE Calls
+    //DELETE Calls
     app.delete('/api/page/:pageId', deletePage);
 
 

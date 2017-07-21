@@ -32,19 +32,19 @@ module.exports = function(app, models) {
     ];
 
 
-//POST Calls
+    //POST Calls
     app.post('/api/page/:pageId/widget', createWidget);
     app.post('/api/upload', upload.single('myFile'), uploadImage);
 
-//GET Calls
+    //GET Calls
     app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
     app.get('/api/widget/:widgetId', findWidgetById);
 
-//PUT Calls
+    //PUT Calls
     app.put('/api/widget/:widgetId', updateWidget);
     app.put('/api/page/:pageId/widget', reorderWidgets);
 
-//DELETE Calls
+    //DELETE Calls
     app.delete('/api/widget/:widgetId', deleteWidget);
 
 

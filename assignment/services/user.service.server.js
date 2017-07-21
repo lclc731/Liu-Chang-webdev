@@ -8,18 +8,18 @@
 module.exports = function(app, models) {
     var users = [];
 
-// GET Calls.
-//app.get('/api/user?username=username', findUserByUsername);
+    // GET Calls.
+    //app.get('/api/user?username=username', findUserByUsername);
     app.get('/api/user', findUserAllUser);
     app.get('/api/user/:uid', findUserById);
 
-// POST Calls.
+    // POST Calls.
     app.post('/api/user', createUsers);
 
-// PUT Calls.
+    // PUT Calls.
     app.put('/api/user/:uid', updateUser);
 
-// DELETE Calls.
+    // DELETE Calls.
     app.delete('/api/user/:uid', deleteUser);
 
 
