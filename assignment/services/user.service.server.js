@@ -26,7 +26,6 @@ module.exports = function(app, models) {
     /*API implementation*/
     function createUsers(req, res) {
         var user = req.body;
-        console.log(' ' + user.username);
         models
             .userModel
             .findUserByUsername(user.username)

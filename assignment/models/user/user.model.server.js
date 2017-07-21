@@ -20,7 +20,6 @@ module.exports = function(mongoose){
     // Function Definition Section
 
     function createUser(user){
-        console.log("client side");
         var newUser = {
             username : user.username,
             password : user.password,

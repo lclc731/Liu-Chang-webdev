@@ -2,7 +2,7 @@
  * Created by ChangLiu on 7/19/17.
  */
 module.exports = function(mongoose){
-    //var pageSchema = require("../page/page.schema.server.js")(mongoose);
+    var pageSchema = require("../page/page.schema.server.js")(mongoose);
 
     var Schema = mongoose.Schema;
 
