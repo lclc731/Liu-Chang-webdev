@@ -2,7 +2,7 @@
  * Created by ChangLiu on 7/19/17.
  */
 module.exports = function(mongoose){
-    // var websiteSchema = require("../website/website.schema.server.js")(mongoose);
+    var websiteSchema = require("../website/website.schema.server.js")(mongoose);
     var Schema = mongoose.Schema;
 
     var userSchema = new Schema({

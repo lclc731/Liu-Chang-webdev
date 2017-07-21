@@ -17,16 +17,18 @@ module.exports = function() {
     mongoose.Promise = require('q').Promise;
 
     var userModel = require("./user/user.model.server.js")(mongoose);
-    // var websiteModel = require("./website/website.model.server.js")(mongoose);
+    var websiteModel = require("./website/website.model.server.js")(mongoose);
     // var pageModel =  require("./page/page.model.server.js")(mongoose);
     // var widgetModel = require("./widget/widget.model.server.js")(mongoose);
 
     var models = {
         'userModel' : userModel,
-        // 'websiteModel' : websiteModel,
+        'websiteModel' : websiteModel
         // 'pageModel' : pageModel,
         // 'widgetModel' : widgetModel
     };
 
     return models;
-}
+
+};
+console.log("models.server.js is running");

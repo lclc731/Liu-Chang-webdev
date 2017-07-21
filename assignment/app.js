@@ -2,12 +2,20 @@
  * Created by ChangLiu on 7/1/17.
  */
 console.log('server side');
-require("../public/assignment/models/models.server");
-
-require("./services/user.service.server.js");
-require("./services/website.service.server.js");
-require("./services/page.service.server.js");
-require("./services/widget.service.server.js");
+module.exports = function(app){
+    var models = require("./models/models.server.js")();
+    console.log('server side2');
+    require("./services/user.service.server.js")(app, models);
+    require("./services/website.service.server.js")(app, models);
+    require("./services/page.service.server")(app);
+    require("./services/widget.service.server")(app);
+};
+// require("../public/assignment/models/models.server");
+//
+// require("./services/user.service.server.js");
+// require("./services/website.service.server.js");
+// require("./services/page.service.server.js");
+// require("./services/widget.service.server.js");
 
 // var app = require("../express");
 //

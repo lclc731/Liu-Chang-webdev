@@ -64,12 +64,12 @@
              var website = {
                  name: name,
                  description: description
-             }
+             };
              WebsiteService
                  .updateWebsite(vm.wid, website)
                  .then(function () {
                     $location.url("/user/" + vm.uid + "/website");
-             })
+             });
          }
 
          function deleteWebsite(websiteId) {

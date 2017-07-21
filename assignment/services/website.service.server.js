@@ -1,95 +1,103 @@
 /**
  * Created by ChangLiu on 7/4/17.
  */
-var app = require("../../express");
+module.exports = function(app, models) {
 
-var websites = [
-    {_id: "123", name: "Facebook", developerId: "456", desc: "Test01"},
-    {_id: "234", name: "Tweeter", developerId: "456", desc: "Test02"},
-    {_id: "456", name: "Gizmodo", developerId: "456", desc: "Test03"},
-    {_id: "567", name: "Tic Tac Toe", developerId: "123", desc: "Test04"},
-    {_id: "678", name: "Checkers", developerId: "123", desc: "Test05"},
-    {_id: "789", name: "Chess", developerId: "234", desc: "Test06"}
-];
+    var websites = [];
 
 //POST Calls
-app.post('/api/user/:userId/website',createWebsite);
+    app.post('/api/user/:userId/website', createWebsite);
 
 //GET Calls
-app.get('/api/user/:userId/website',findAllWebsitesForUser);
-app.get('/api/website/:websiteId',findWebsiteById);
+    app.get('/api/user/:userId/website', findAllWebsitesForUser);
+    app.get('/api/website/:websiteId', findWebsiteById);
 
 //PUT Calls
-app.put('/api/website/:websiteId',updateWebsite);
+    app.put('/api/website/:websiteId', updateWebsite);
 
 //DELETE Calls
-app.delete('/api/website/:websiteId',deleteWebsite);
+    app.delete('/api/website/:websiteId', deleteWebsite);
 
 
-/*API calls implementation*/
-function createWebsite(req, res) {
-    var uid = req.params.userId;
-    var website = req.body;
+    /*API calls implementation*/
+    function createWebsite(req, res) {
+        var uid = req.params.userId;
+        var website = req.body;
 
-    var newWebsite = {
-        _id: new Date().getTime(),
-        name: website.name,
-        desc: website.desc,
-        developerId: uid
-    };
-    websites.push(newWebsite);
-
-    res.sendStatus(200);
-}
-
-function findAllWebsitesForUser(req, res) {
-    var uid = req.params.userId;
-    var results = [];
-    for (w in websites) {
-        var website = websites[w];
-        if (parseInt(website.developerId) === parseInt(uid)) {
-            results.push(website);
-        }
+        models
+            .websiteModel
+            .createWebsiteForUser(uid, website)
+            .then(
+                function (status) {
+                    res.send(status);
+                },
+                function () {
+                    res.sendStatus(400).send(error);
+                });
     }
-    res.send(results);
-}
 
-function findWebsiteById(req, res) {
-    var wid = req.websiteId
-    var website = null;
-    for (w in websites) {
-        if (parseInt(websites[w]._id) === parseInt(wid)) {
-            website = websites[w];
-            break;
-        }
+    function findAllWebsitesForUser(req, res) {
+        var uid = req.params.userId;
+        models
+            .websiteModel
+            .findAllWebsitesForUser(uid)
+            .then(
+                function (websites) {
+                    res.json(websites);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+
     }
-    res.send(website);
-}
 
-function updateWebsite(req, res) {
-
-    var wid = req.params.websiteId;
-    var website = req.body;
-
-    for (w in websites) {
-        if (parseInt(websites[w]._id) === parseInt(wid)) {
-            websites[w].name=website.name;
-            websites[w].desc=website.desc;
-            res.sendStatus(200);
-            return;
-        }
+    function findWebsiteById(req, res) {
+        var wid = req.params.websiteId;
+        models
+            .websiteModel
+            .findWebsiteById(wid)
+            .then(
+                function (website) {
+                    if (website) {
+                        res.json(website);
+                    } else {
+                        website = null;
+                        res.send(website);
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
-    res.sendStatus(404);
-}
 
-function deleteWebsite(req, res) {
-    var wid = req.params.websiteId;
-    for (w in websites) {
-        if (parseInt(websites[w]._id) === parseInt(wid)) {
-            websites.splice(w, 1);
-            res.sendStatus(200);
-            return;
-        }
+    function updateWebsite(req, res) {
+        var wid = req.params.websiteId;
+        var website = req.body;
+
+        models
+            .websiteModel
+            .updateWebsite(wid, website)
+            .then(
+                function (status) {
+                    res.send(status);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
-    res.sendStatus(404);
-}
+
+    function deleteWebsite(req, res) {
+        var wid = req.params.websiteId;
+
+        models
+            .websiteModel
+            .deleteWebsite(wid)
+            .then(
+            function (status) {
+                res.sendStatus(200);
+            },
+            function (error) {
+                res.sendStatus(400).send(error);
+            });
+    }
+};

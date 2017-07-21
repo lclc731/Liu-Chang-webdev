@@ -18,9 +18,12 @@
         return services;
 
         function createUser(user) {
+            console.log("client side begin");
+
             var url = "/api/user";
             return $http.post(url, user)
                         .then(function (response) {
+                            console.log("client side end");
                             return response.data;
                         });
         }
