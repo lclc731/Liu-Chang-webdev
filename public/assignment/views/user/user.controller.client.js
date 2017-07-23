@@ -77,23 +77,9 @@
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
 
-        function updateUser(username, email, firstName, lastName) {
-            if (username) {
-                vm.username = username;
-            } else {
-                vm.username = vm.user.username;
-            }
-
-            var newuser = {
-                _id: $routeParams.uid,
-                username: vm.username,
-                email : email,
-                firstName: firstName,
-                lastName: lastName
-            };
-
+        function updateUser(user) {
             UserService
-                .updateUser(vm.user._id, newuser)
+                .updateUser(vm.user._id, user)
                 .then(
                     function (newUser) {
                         if (newUser) {

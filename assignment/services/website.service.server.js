@@ -77,8 +77,8 @@ module.exports = function(app, models) {
             .websiteModel
             .updateWebsite(wid, website)
             .then(
-                function (status) {
-                    res.send(status);
+                function (website) {
+                    res.sendStatus(200);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);

@@ -69,26 +69,26 @@
         vm.createWidget = createWidget;
         vm.createError = null;
 
-        function createWidget() {
+        function createWidget(name, size, width, text, url) {
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
-                if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
+                if (url === null || url === undefined) {
                     vm.createError = "Url is required for Image/Youtube";
                     return;
                 }
             }
             if (vm.widgetType === 'HEADING') {
-                if (vm.widgetText === null || vm.widgetText === undefined) {
+                if (text === null || text === undefined) {
                     vm.createError = "Text is required for Header";
                     return;
                 }
             }
             var newWidget = {
-                name: vm.widgetName,
-                text: vm.widgetText,
-                widgetType: vm.widgetType,
-                size: vm.widgetSize,
-                width: vm.widgetWidth,
-                url: vm.widgetUrl
+                name: name,
+                text: text,
+                type: vm.widgetType,
+                size: size,
+                width: width,
+                url: url
             };
             if (newWidget === null || newWidget === undefined) {
                 vm.createError = "no new widget";
@@ -112,43 +112,24 @@
             .findWidgetById(vm.wgid)
             .then(function (widget) {
                 vm.widget = widget;
-
-                if (vm.widget.widgetType === "HEADING") {
-                    vm.widgetName = vm.widget.name;
-                    vm.widgetText = vm.widget.text;
-                    vm.widgetSize = vm.widget.size;
-                } else if (vm.widget.widgetType === "IMAGE") {
-                    vm.widgetName = vm.widget.name;
-                    vm.widgetText = vm.widget.text;
-                    vm.widgetUrl = vm.widget.url;
-                    vm.widgetWidth = vm.widget.width;
-                } else if (vm.widget.widgetType === "YOUTUBE") {
-                    vm.widgetName = vm.widget.name;
-                    vm.widgetText = vm.widget.text;
-                    vm.widgetUrl = vm.widget.url;
-                    vm.widgetWidth = vm.widget.width;
-                }
+                vm.widgetType = vm.widget.type;
             });
 
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
 
-        function editWidget() {
-            WidgetService
-                .findWidgetById(vm.wgid)
-                .then(function (widget) {
-                    vm.widget = widget;
-                });
-            var latestData = {
-                name: vm.widgetName,
-                text: vm.widgetText,
-                widgetType: vm.widget.widgetType,
-                size: vm.widgetSize,
-                width: vm.widgetWidth,
-                url: vm.widgetUrl
+        function editWidget(name, size, width, text, url) {
+
+            var newWidget = {
+                name : name,
+                text : text,
+                type : vm.widgetType,
+                size : size,
+                width : width,
+                url : url
             };
             WidgetService
-                .updateWidget(vm.wgid, latestData)
+                .updateWidget(vm.wgid, newWidget)
                 .then(function () {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 });

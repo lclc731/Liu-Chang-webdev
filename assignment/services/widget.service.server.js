@@ -53,77 +53,78 @@ module.exports = function(app, models) {
         var pid = req.params.pageId;
         var widget = req.body;
 
-        var newWidget = {
-            _id: new Date().getTime(),
-            pageId: pid,
-            name: widget.name,
-            text: widget.text,
-            widgetType: widget.widgetType,
-            size: widget.size,
-            width: widget.width,
-            url: widget.url
-        };
-        widgets.push(newWidget);
+        models
+            .widgetModel
+            .createWidgetForPage(pid, widget)
+            .then(
+                function (newWidget){
+                    res.json(newWidget);
+                },
+                function (error){
+                    res.sendStatus(400).send(error);
+                });
 
-        res.sendStatus(200);
-    }
+    };
 
     function findAllWidgetsForPage(req, res) {
         var pid = req.params.pageId;
-        var results = [];
-        for (wi in widgets) {
-            var widget = widgets[wi];
-            if (parseInt(widget.pageId) === parseInt(pid)) {
-                results.push(widget);
-            }
-        }
-        res.send(results);
+
+        models
+            .widgetModel
+            .findAllWidgetsForPage(pid)
+            .then(
+                function (widgets) {
+                    res.json(widgets);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function findWidgetById(req, res) {
         var wgid = req.params.widgetId;
-        var widget = null;
-        for (wi in widgets) {
-            if (parseInt(widgets[wi]._id) === parseInt(wgid)) {
-                widget = widgets[wi];
-                break;
-            }
-        }
-        res.send(widget);
+
+        models
+            .widgetModel
+            .findWidgetById(wgid)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function updateWidget(req, res) {
         var wgid = req.params.widgetId;
         var widget = req.body;
 
-        for (wi in widgets) {
-            if (parseInt(widgets[wi]._id) === parseInt(wgid)) {
-                // if (widgets[wi].widgetType != widget.widgetType) {
-                //     res.sendStatus(404);
-                // }
-                widgets[wi].name = widget.name;
-                widgets[wi].text = widget.text;
-                widgets[wi].size = widget.size;
-                widgets[wi].widgetType != widget.widgetType
-                widgets[wi].width = widget.width;
-                widgets[wi].url = widget.url;
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(404);
+        models
+            .widgetModel
+            .updateWidget(wgid, widget)
+            .then(
+                function (widget) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function deleteWidget(req, res) {
         var wgid = req.params.widgetId;
-        for (wi in widgets) {
-            if (parseInt(widgets[wi]._id) === parseInt(wgid)) {
-                widgets.splice(wi, 1);
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(404);
+
+        models
+            .widgetModel
+            .deleteWidget(wgid)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function reorderWidgets(req, res) {

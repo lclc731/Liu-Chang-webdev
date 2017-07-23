@@ -28,7 +28,7 @@
             var page = {
                 name: name,
                 description: description
-            }
+            };
             PageService
                 .createPage(vm.wid, page)
                 .then(function () {
@@ -46,11 +46,13 @@
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
 
-        function updatePage(name, description) {
-            var page = {
-                name: name,
-                description: description
-            }
+        PageService
+            .findPageById(vm.pid)
+            .then(function (page) {
+                vm.page = page;
+            });
+
+        function updatePage(page) {
             PageService
                 .updatePage(vm.pid, page)
                 .then(function () {

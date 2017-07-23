@@ -34,7 +34,7 @@ module.exports = function(mongoose) {
         return widgetModel.update({
             _id : widgetId
         }, {
-            type: widget.widgetType,
+            type: widget.type,
             name: widget.name,
             text: widget.text,
             url: widget.url,

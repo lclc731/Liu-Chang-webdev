@@ -54,17 +54,13 @@
          WebsiteService
              .findWebsiteById(vm.wid)
              .then(function (website) {
-                 vm.web = website;
+                 vm.website = website;
              });
 
          vm.updateWebsite = updateWebsite;
          vm.deleteWebsite = deleteWebsite;
 
-         function updateWebsite(name, description) {
-             var website = {
-                 name: name,
-                 description: description
-             };
+         function updateWebsite(website) {
              WebsiteService
                  .updateWebsite(vm.wid, website)
                  .then(function () {

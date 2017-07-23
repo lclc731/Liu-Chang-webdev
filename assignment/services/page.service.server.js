@@ -52,7 +52,7 @@ module.exports = function(app, models) {
     }
 
     function findPageById(req, res) {
-        var pid = req.pageId
+        var pid = req.params.pageId;
 
         models
             .pageModel
@@ -74,8 +74,8 @@ module.exports = function(app, models) {
             .pageModel
             .updatePage(pid, page)
             .then(
-                function (status) {
-                    res.send(status);
+                function (page) {
+                    res.sendStatus(200);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
