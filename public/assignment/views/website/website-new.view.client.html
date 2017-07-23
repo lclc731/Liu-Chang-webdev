@@ -20,7 +20,7 @@
                 <a class="cl-text-white navbar-brand cl-text-bold" href="#">
                     New Websites
                 </a>
-                <a ng-click="model.newWebsite(model.name, model.description)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+                <a ng-click="model.newWebsite(name, description)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -41,12 +41,12 @@
         <form>
             <div class="form-group">
                 <label for="website-name">Name</label>
-                <input ng-model="model.name"
+                <input ng-model="name"
                        type="text" class="form-control" id="website-name" placeholder="Name">
             </div>
             <div class="form-group">
                 <label for="website-description">Description</label>
-                <textarea ng-model="model.description"
+                <textarea ng-model="description"
                         id="website-description" class="form-control" rows="5" placeholder="Description"></textarea>
             </div>
         </form>

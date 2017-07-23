@@ -77,6 +77,8 @@ module.exports = function(app, models) {
                     function (user) {
                         if (user) {
                             res.json(user);
+                        } else {
+                            res.send(null);
                         }
                     },
                     function (error) {
@@ -113,8 +115,8 @@ module.exports = function(app, models) {
             .userModel
             .updateUser(uid, new_user)
             .then(
-                function (status) {
-                    res.send(status);
+                function (user) {
+                    res.json(user);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);

@@ -92,11 +92,11 @@ module.exports = function(app, models) {
             .websiteModel
             .deleteWebsite(wid)
             .then(
-            function (status) {
-                res.sendStatus(200);
-            },
-            function (error) {
-                res.sendStatus(400).send(error);
-            });
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 };

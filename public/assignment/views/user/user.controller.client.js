@@ -38,19 +38,30 @@
                 vm.error = "Password does not match.";
                 return;
             }
-            var user = {
-                username: username,
-                password: password,
-                firstName: "",
-                lastName: "",
-                email: ""
-            }
             UserService
-                .createUser(user)
-                .then(function (newUser) {
-                    $location.url("/user/" + newUser._id);
-                });
+                .findUserByUsername(username)
+                .then(function (user) {
+                    if (user) {
+                        vm.error = "Username already exists.";
+                    }
+                    else {
+                        var NewUser = {
+                            username: username,
+                            password: password,
+                            firstName: "",
+                            lastName: "",
+                            email: ""
+                        }
 
+                        UserService
+                            .createUser(NewUser)
+                            .then(function (newUser) {
+                                if (newUser) {
+                                    $location.url("/user/" + newUser._id);
+                                }
+                            });
+                    }
+                });
         }
     }
 
@@ -63,21 +74,32 @@
             vm.user = user;
         }
 
-
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
 
-        function updateUser(user) {
+        function updateUser(username, email, firstName, lastName) {
+            if (username) {
+                vm.username = username;
+            } else {
+                vm.username = vm.user.username;
+            }
+
+            var newuser = {
+                _id: $routeParams.uid,
+                username: vm.username,
+                email : email,
+                firstName: firstName,
+                lastName: lastName
+            };
 
             UserService
-                .updateUser(user._id, user)
+                .updateUser(vm.user._id, newuser)
                 .then(
-                    function (status) {
-                        if (status) {
+                    function (newUser) {
+                        if (newUser) {
                             vm.updated = "Profile changes saved!";
                         }
                     });
-
 
             $timeout(function () {
                 vm.updated = null;

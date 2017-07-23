@@ -166,7 +166,6 @@ module.exports = function(app, models) {
         var websiteId = req.body.websiteId;
         var pageId = req.body.pageId;
 
-        var originalname = myFile.originalname; // file name on user's computer
         var filename = myFile.filename; // new file name in upload folder
         var path = myFile.path; // full path of uploaded file
         var destination = myFile.destination; // folder where file is saved to
