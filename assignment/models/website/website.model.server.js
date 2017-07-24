@@ -1,7 +1,7 @@
 /**
  * Created by ChangLiu on 7/19/17.
  */
-module.exports = function(mongoose) {
+module.exports = function(mongoose, userModel) {
     var websiteSchema = require('./website.schema.server.js')(mongoose);
     var websiteModel = mongoose.model('Website', websiteSchema);
 
@@ -11,6 +11,7 @@ module.exports = function(mongoose) {
         'findWebsiteById': findWebsiteById,
         'updateWebsite': updateWebsite,
         'removePageFromWebsite': removePageFromWebsite,
+        'insertPageToWebsite' : insertPageToWebsite,
         'deleteWebsite': deleteWebsite
     };
 
@@ -20,7 +21,13 @@ module.exports = function(mongoose) {
 
     function createWebsiteForUser(userId, website) {
         website._user = userId;
-        return websiteModel.create(website);
+        return websiteModel
+            .create(website)
+            .then(
+                function (website) {
+                    userModel
+                        .insertWebsiteToUser(website._user, website._id);
+                });
     }
 
     function findAllWebsitesForUser(userId) {
@@ -52,6 +59,15 @@ module.exports = function(mongoose) {
                     console.log(error);
                 }
             );
+    }
+
+    function insertPageToWebsite(websiteId, pageId){
+        websiteModel
+            .findById(websiteId)
+            .then(function (website) {
+                website.pages.push(pageId);
+                website.save();
+            });
     }
 
     function deleteWebsite(websiteId) {

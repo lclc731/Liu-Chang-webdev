@@ -5,31 +5,7 @@ module.exports = function(app, models) {
     var multer = require('multer'); // npm install multer save
     var upload = multer({dest: __dirname + '/../../public/assignment/uploads'});
 
-    var widgets = [
-        {_id: "123", widgetType: "HEADING", pageId: "321", size: 2, name: "GIZZY", text: "GIZMODO"},
-        {_id: "234", widgetType: "HEADING", pageId: "100", size: 4, name: "Ippsy", text: "Lorem ipsum"},
-        {
-            _id: "345",
-            widgetType: "IMAGE",
-            pageId: "321",
-            name: "Lorem Pixel",
-            text: "Pixel",
-            width: "100%",
-            url: "http://lorempixel.com/400/200/"
-        },
-        {_id: "456", widgetType: "HTML", pageId: "321", name: "Ipsy", text: "<p>Lorem ipsum</p>"},
-        {_id: "567", widgetType: "HEADING", pageId: "321", size: 4, name: "Lorrro", text: "Lorem ipsum"},
-        {
-            _id: "678",
-            widgetType: "YOUTUBE",
-            pageId: "321",
-            name: "Dire Straits",
-            text: "Sultans of Swing",
-            width: "100%",
-            url: "https://www.youtube.com/embed/8Pa9x9fZBtY"
-        },
-        {_id: "789", widgetType: "HTML", pageId: "100", name: "Lorem", text: "<p>Lorem ipsum</p>"}
-    ];
+    var widgets = [];
 
 
     //POST Calls
@@ -129,34 +105,19 @@ module.exports = function(app, models) {
 
     function reorderWidgets(req, res) {
         var pageId = req.params.pageId;
-        var pageWidgets = [];
-        for (wi in widgets) {
-            var widget = widgets[wi];
-            if (parseInt(widget.pageId) === parseInt(pageId)) {
-                pageWidgets.push(widget);
-            }
-        }
-        console.log("begin sort!2");
+        var start = req.query.initial;
+        var end = req.query.final;
 
-        var index1 = req.query.initial;
-        var index2 = req.query.final;
-
-        var initial = widgets.indexOf(pageWidgets[index1]);
-        var final = widgets.indexOf(pageWidgets[index2]);
-
-
-        if (index1 && index2) {
-            if (final >= widgets.length) {
-                var k = final - widgets.length;
-                while ((k--) + 1) {
-                    widgets.push(undefined);
-                }
-            }
-            widgets.splice(final, 0, widgets.splice(initial, 1)[0]);
-            res.sendStatus(200);
-            return;
-        }
-        res.status(404).send("Cannot reorder widgets");
+        models
+            .widgetModel
+            .reorderWidgets(pageId, start, end)
+            .then(
+                function (status) {
+                    res.send(status);
+                },
+                function (error) {
+                    res.sendStatus(400).send("Cannot reorder widgets");
+                });
     }
 
     function uploadImage(req, res) {

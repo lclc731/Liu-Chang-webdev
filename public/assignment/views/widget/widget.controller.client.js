@@ -40,7 +40,7 @@
             WidgetService
                 .reorderWidgets(vm.pid, start, end)
                 .then(function () {
-                $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
             });
 
         }
@@ -69,33 +69,32 @@
         vm.createWidget = createWidget;
         vm.createError = null;
 
-        function createWidget(name, size, width, text, url) {
+        var widget = {
+            type: vm.widgetType
+        };
+        vm.widget = widget;
+
+        function createWidget(widget) {
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
-                if (url === null || url === undefined) {
+                if (vm.widget.url === null || vm.widget.url === undefined) {
                     vm.createError = "Url is required for Image/Youtube";
                     return;
                 }
             }
             if (vm.widgetType === 'HEADING') {
-                if (text === null || text === undefined) {
+                if (vm.widget.text === null || vm.widget.text === undefined) {
                     vm.createError = "Text is required for Header";
                     return;
                 }
             }
-            var newWidget = {
-                name: name,
-                text: text,
-                type: vm.widgetType,
-                size: size,
-                width: width,
-                url: url
-            };
-            if (newWidget === null || newWidget === undefined) {
+
+            if (widget === null || widget === undefined) {
                 vm.createError = "no new widget";
                 return;
             }
+
             WidgetService
-                .createWidget(vm.pid, newWidget)
+                .createWidget(vm.pid, widget)
                 .then(function () {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 });
@@ -118,18 +117,9 @@
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
 
-        function editWidget(name, size, width, text, url) {
-
-            var newWidget = {
-                name : name,
-                text : text,
-                type : vm.widgetType,
-                size : size,
-                width : width,
-                url : url
-            };
+        function editWidget(widget) {
             WidgetService
-                .updateWidget(vm.wgid, newWidget)
+                .updateWidget(vm.wgid, widget)
                 .then(function () {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 });

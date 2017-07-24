@@ -33,7 +33,8 @@
                  name: name,
                  developId: "",
                  description: description
-             }
+             };
+             
              WebsiteService
                  .createWebsite(vm.uid, website)
                  .then(function () {

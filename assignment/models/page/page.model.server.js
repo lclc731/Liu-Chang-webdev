@@ -1,7 +1,7 @@
 /**
  * Created by ChangLiu on 7/19/17.
  */
-module.exports = function(mongoose) {
+module.exports = function(mongoose, websiteModel) {
     var pageSchema = require('./page.schema.server')(mongoose);
     var pageModel = mongoose.model('Page', pageSchema);
 
@@ -10,6 +10,7 @@ module.exports = function(mongoose) {
         'findAllPagesForWebsite' : findAllPagesForWebsite,
         'findPageById' : findPageById,
         'updatePage' : updatePage,
+        'insertWidgetToPage' : insertWidgetToPage,
         'deletePage' : deletePage
     };
 
@@ -18,7 +19,13 @@ module.exports = function(mongoose) {
     // Function Definition Section
     function createPageForWebsite(websiteId, page) {
         page._website = websiteId;
-        return pageModel.create(page);
+        return pageModel
+            .create(page)
+            .then(
+                function (page) {
+                    websiteModel
+                        .insertPageToWebsite(page._website, page._id);
+                });
     }
 
     function findAllPagesForWebsite(websiteId) {
@@ -36,6 +43,15 @@ module.exports = function(mongoose) {
             name : page.name,
             description : page.description
         });
+    }
+
+    function insertWidgetToPage(pageId, widgetId){
+        pageModel
+            .findById(pageId)
+            .then(function (page) {
+                page.widgets.push(widgetId);
+                page.save();
+            });
     }
 
     function deletePage(pageId) {

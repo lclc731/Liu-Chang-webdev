@@ -30,7 +30,7 @@ module.exports = function(app, models) {
                 function (status) {
                     res.send(status);
                 },
-                function () {
+                function (error) {
                     res.sendStatus(400).send(error);
                 });
     }

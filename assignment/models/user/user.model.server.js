@@ -12,6 +12,7 @@ module.exports = function(mongoose){
         'findUserByCredentials' : findUserByCredentials,
         'updateUser' : updateUser,
         'removeWebsiteFromUser' : removeWebsiteFromUser,
+        'insertWebsiteToUser' : insertWebsiteToUser,
         'deleteUser' : deleteUser
     };
 
@@ -82,6 +83,15 @@ module.exports = function(mongoose){
                     console.log(error);
                 }
             );
+    }
+
+    function insertWebsiteToUser(userId, websiteId){
+        userModel
+            .findById(userId)
+            .then(function (user) {
+                user.websites.push(websiteId);
+                user.save();
+            });
     }
 
     function deleteUser(userId){
