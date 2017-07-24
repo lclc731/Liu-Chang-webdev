@@ -32,10 +32,10 @@ module.exports = function(mongoose, pageModel) {
         return pageModel
             .findPageById(pageId)
             .populate('widgets')
-            .then(
-                function (page) {
-                    return page.widgets;
-                });
+            .exec()
+            .then(function (page) {
+                return page.widgets;
+            });
     }
 
     function findWidgetById(widgetId) {
@@ -50,8 +50,8 @@ module.exports = function(mongoose, pageModel) {
             name: widget.name,
             text: widget.text,
             url: widget.url,
-            size: widget.size,
-            width: widget.width
+            width: widget.width,
+            size: widget.size
         });
     }
 
@@ -66,17 +66,8 @@ module.exports = function(mongoose, pageModel) {
             .findPageById(pageId)
             .then(
                 function (page) {
-                    if (start && end) {
-                        if (end >= page.widgets.length) {
-                            var k = end - page.widgets.length;
-                            while ((k--) + 1) {
-                                page.widgets.push(undefined);
-                            }
-                        }
-                        page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
-                        page.save();
-                    }
-                }
-            )
+                    page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+                    page.save();
+                });
     }
 };

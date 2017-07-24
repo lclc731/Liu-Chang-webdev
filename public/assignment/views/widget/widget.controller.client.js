@@ -70,7 +70,8 @@
         vm.createError = null;
 
         var widget = {
-            type: vm.widgetType
+            type: vm.widgetType,
+            size: 3
         };
         vm.widget = widget;
 
@@ -118,6 +119,9 @@
         vm.deleteWidget = deleteWidget;
 
         function editWidget(widget) {
+            if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE') {
+                widget.size = 1;
+            }
             WidgetService
                 .updateWidget(vm.wgid, widget)
                 .then(function () {

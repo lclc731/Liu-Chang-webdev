@@ -1,0 +1,38 @@
+<form>
+    <label for="name">Name</label>
+    <input id="name" placeholder="html"
+           ng-model="model.widget.name"
+           class="form-control"/>
+    <label for="text">HTML</label>
+    <div class="form-group">
+        <div ng-model="model.widget.text" id="text"
+             text-angular
+             ta-toolbar = "[['h1','h2','h3'],
+                     ['bold','italics','underline','strikeThrough'],
+                     ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+                     ['indent','outdent'],['html']]">
+        </div>
+
+    </div>
+</form>
+
+<!--<label for="name">Name</label>-->
+<!--<input ng-model="model.widget.name"-->
+       <!--type="text"-->
+       <!--class="form-control"-->
+       <!--placeholder="HTML Name"-->
+       <!--id="name"-->
+       <!--required>-->
+
+<!--<label for="html-text">HTML</label>-->
+<!--<text-angular-->
+        <!--ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],-->
+        <!--['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],-->
+        <!--['indent','outdent'],['html']]"-->
+        <!--ng-model="model.widget.text"-->
+        <!--type="text"-->
+        <!--place-holder="html content"-->
+        <!--id="html-text"-->
+        <!--ta-text-editor-class="form-control myform1-height"-->
+        <!--ta-html-editor-class="form-control myform1-height">-->
+<!--</text-angular>-->
