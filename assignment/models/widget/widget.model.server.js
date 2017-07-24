@@ -51,7 +51,10 @@ module.exports = function(mongoose, pageModel) {
             text: widget.text,
             url: widget.url,
             width: widget.width,
-            size: widget.size
+            size: widget.size,
+            placeholder : widget.placeholder,
+            rows : widget.rows,
+            formatted : widget.formatted
         });
     }
 

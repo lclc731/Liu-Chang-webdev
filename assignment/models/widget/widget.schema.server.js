@@ -7,7 +7,7 @@ module.exports = function(mongoose){
     var widgetSchema = new Schema({
         _page : {type : Schema.Types.ObjectId, ref : 'Page'},
         // enum
-        type : {type : String, enum : ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT']},
+        type : {type : String, enum : ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXTINPUT']},
         name : {type : String, required : true},
         text : String,
         placeholder : String,

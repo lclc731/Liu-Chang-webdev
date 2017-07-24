@@ -119,8 +119,11 @@
         vm.deleteWidget = deleteWidget;
 
         function editWidget(widget) {
-            if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE') {
+            if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE' || vm.widgetType === 'TEXTINPUT') {
                 widget.size = 1;
+            }
+            if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE') {
+                widget.row = 0;
             }
             WidgetService
                 .updateWidget(vm.wgid, widget)
