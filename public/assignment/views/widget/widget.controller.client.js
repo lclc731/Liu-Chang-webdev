@@ -20,7 +20,6 @@
                 vm.widgets = widgets;
             });
 
-
         vm.trust = trust;
         vm.getYoutubeEmbedUrl = getYoutubeEmbedUrl;
         vm.sortWidgets = sortWidgets;
@@ -42,7 +41,6 @@
                 .then(function () {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
             });
-
         }
     }
 
@@ -82,6 +80,7 @@
                     return;
                 }
             }
+
             if (vm.widgetType === 'HEADING') {
                 if (vm.widget.text === null || vm.widget.text === undefined) {
                     vm.createError = "Text is required for Header";

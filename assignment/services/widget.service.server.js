@@ -40,7 +40,7 @@ module.exports = function(app, models) {
                     res.sendStatus(400).send(error);
                 });
 
-    };
+    }
 
     function findAllWidgetsForPage(req, res) {
         var pid = req.params.pageId;
