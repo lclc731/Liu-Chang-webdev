@@ -122,7 +122,7 @@
                 widget.size = 1;
             }
             if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE') {
-                widget.row = 0;
+                widget.rows = 5;
             }
             WidgetService
                 .updateWidget(vm.wgid, widget)
