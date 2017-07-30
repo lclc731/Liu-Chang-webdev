@@ -2,8 +2,8 @@
  * Created by ChangLiu on 7/6/17.
  */
 module.exports = function(app, models) {
-    var multer = require('multer'); // npm install multer save
-    var upload = multer({dest: __dirname + '/../../public/assignment/uploads'});
+    var multer = require('multer');
+    var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
     var widgets = [];
 
@@ -128,23 +128,77 @@ module.exports = function(app, models) {
         var websiteId = req.body.websiteId;
         var pageId = req.body.pageId;
 
-        var filename = myFile.filename; // new file name in upload folder
-        var path = myFile.path; // full path of uploaded file
-        var destination = myFile.destination; // folder where file is saved to
-        var size = myFile.size;
-        var mimetype = myFile.mimetype;
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
 
-        var widget = {};
-        for (wi in widgets) {
-            if (parseInt(widgets[wi]._id) === parseInt(widgetId)) {
-                widget = widgets[wi];
-                break;
-            }
+        var url = '/uploads/'+filename;
+
+        console.log("create image1");
+        if (widgetId === undefined || widgetId === null || widgetId === '') {
+            var widget = {
+                type: 'IMAGE',
+                url: url,
+                width: width
+            };
+            console.log("create image");
+            models
+                .widgetModel
+                .createWidgetForPage(pageId, widget)
+                .then(
+                    function (widget) {
+                        if(widget){
+                            res.json(widget);
+                        } else {
+                            widget = null;
+                            res.send(widget);
+                        }
+                    }
+                    ,
+                    function (error) {
+                        res.sendStatus(400).send("widget service server, upload error");
+                    }
+                )
+        } else {
+            models
+                .widgetModel
+                .findWidgetById(widgetId)
+                .then(
+                    function (widget) {
+                        widget.url = url;
+                        model.updateWidget(widgetId, widget)
+                            .then(
+                                function (widget) {
+                                    res.json(widget);
+                                },
+                                function (error) {
+                                    res.status(400).send("widget service server, updateWidget error");
+                                }
+                            )
+                    },
+                    function (error) {
+                        res.status(400).send("Cannot find widget by id");
+                    }
+                )
+
         }
 
-        widget.url = '/assignment/uploads/' + filename;
-        widget.width = width;
-        var callbackUrl = "/#!/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget";
+        var callbackUrl  = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
         res.redirect(callbackUrl);
+        // var widget = {};
+        // for (wi in widgets) {
+        //     if (parseInt(widgets[wi]._id) === parseInt(widgetId)) {
+        //         widget = widgets[wi];
+        //         break;
+        //     }
+        // }
+        //
+        // widget.url = '/assignment/uploads/' + filename;
+        // widget.width = width;
+        // var callbackUrl = "/#!/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget";
+        // res.redirect(callbackUrl);
     }
 };
