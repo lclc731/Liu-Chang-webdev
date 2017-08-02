@@ -1,9 +1,8 @@
 /**
  * Created by ChangLiu on 7/1/17.
  */
-// var mongoose = require('mongoose');
-// var models = require("../../public/assignment/models/models.server")(mongoose);
-// var app = require("../../express");
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(app, models) {
     var users = [];
@@ -22,6 +21,64 @@ module.exports = function(app, models) {
     // DELETE Calls.
     app.delete('/api/user/:uid', deleteUser);
 
+
+    /*Config Passport*/
+    app.post('/api/login', passport.authenticate('LocalStrategy'), login);
+    app.get('/api/checkLoggedIn', checkLoggedIn);
+
+    passport.use('LocalStrategy', new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+
+    function localStrategy(username, password, done) {
+        models
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    if(user.username === username && user.password === password) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        models
+            .userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function checkLoggedIn(req, res) {
+        if (req.isAuthenticated()) {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
+    }
 
     /*API implementation*/
     function createUsers(req, res) {

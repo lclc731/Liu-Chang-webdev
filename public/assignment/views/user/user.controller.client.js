@@ -14,14 +14,17 @@
 
         function login(username, password) {
             UserService
-                .findUserByCredentials(username, password)
-                .then(function (user) {
-                    if (user) {
-                        $location.url("/user/" + user._id);
-                    } else {
+                // .findUserByCredentials(username, password)
+                .login(username, password)
+                .then(
+                    function (user) {
+                        if (user) {
+                            $location.url("/profile");
+                        }
+                    },
+                    function (error) {
                         vm.error = "Username does not exist.";
-                    }
-                });
+                    });
         }
     }
 
@@ -65,10 +68,16 @@
         }
     }
 
-    function ProfileController($routeParams, $timeout, UserService, $location) {
+    function ProfileController(loggedin, $timeout, UserService, $location) {
         var vm = this;
-        UserService.findUserById($routeParams.uid)
-                   .then(renderUser);
+        vm.uid = loggedin._id;
+        vm.user = loggedin;
+
+        function init() {
+            renderUser(vm.user);
+        }
+
+        init();
 
         function renderUser (user) {
             vm.user = user;
