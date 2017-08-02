@@ -8,11 +8,6 @@
 
     function configuration($routeProvider) {
         $routeProvider
-        /*            .when('/', {
-         templateUrl : "/views/user/login.view.client.html",
-         controller: "LoginController",
-         controllerAs: "model"
-         })*/
             .when('/', {
                 templateUrl : "/views/home.view.client.html",
                 controller: "HomeController",

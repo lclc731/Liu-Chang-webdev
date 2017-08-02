@@ -54,13 +54,13 @@
                             firstName: "",
                             lastName: "",
                             email: ""
-                        }
+                        };
 
                         UserService
-                            .createUser(NewUser)
-                            .then(function (newUser) {
-                                if (newUser) {
-                                    $location.url("/user/" + newUser._id);
+                            .register(NewUser)
+                            .then(function (newuser) {
+                                if (newuser) {
+                                    $location.url("/profile");
                                 }
                             });
                     }
@@ -85,6 +85,7 @@
 
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
+        vm.logout = logout;
 
         function updateUser(user) {
             UserService
@@ -108,6 +109,14 @@
                     $location.url("/login");
                 });
 
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function () {
+                    $location.url('/login');
+                });
         }
     }
 

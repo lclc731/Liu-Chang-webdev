@@ -25,6 +25,8 @@ module.exports = function(app, models) {
     /*Config Passport*/
     app.post('/api/login', passport.authenticate('LocalStrategy'), login);
     app.get('/api/checkLoggedIn', checkLoggedIn);
+    app.post('/api/register', register);
+    app.post('/api/logout', logout);
 
     passport.use('LocalStrategy', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -78,6 +80,23 @@ module.exports = function(app, models) {
         } else {
             res.send('0');
         }
+    }
+
+    function register(req, res) {
+        var user = req.body;
+        models
+            .userModel
+            .createUser(user)
+            .then(function (user) {
+                req.login(user, function (status) {
+                    res.json(user);
+                    });
+                });
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.sendStatus(200);
     }
 
     /*API implementation*/
