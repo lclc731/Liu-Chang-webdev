@@ -68,7 +68,8 @@ module.exports = function(app, models) {
                                 token: token
                             }
                         };
-                        return model
+                        return models
+                            .userModel
                             .createUser(newGoogleUser);
                     }
                 },
