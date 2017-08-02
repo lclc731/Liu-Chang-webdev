@@ -8,9 +8,9 @@
         .controller('NewPageController', NewPageController)
         .controller('EditPageController', EditPageController);
 
-    function PageListController($routeParams, PageService) {
+    function PageListController($routeParams, PageService, loggedin) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = loggedin._id;
         vm.wid = $routeParams.wid;
         PageService.findPageByWebsiteId(vm.wid)
                    .then(function (pages) {
@@ -18,9 +18,9 @@
                    })
     }
 
-    function NewPageController($routeParams, PageService, $location) {
+    function NewPageController($routeParams, PageService, $location, loggedin) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = loggedin._id;
         vm.wid = $routeParams.wid;
         vm.newPage = newPage;
 
@@ -32,15 +32,15 @@
             PageService
                 .createPage(vm.wid, page)
                 .then(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                    $location.url("/website/" + vm.wid + "/page");
                 })
         }
     }
 
 
-    function EditPageController($routeParams, PageService, $location) {
+    function EditPageController($routeParams, PageService, $location, loggedin) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = loggedin._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.deletePage = deletePage;
@@ -56,7 +56,7 @@
             PageService
                 .updatePage(vm.pid, page)
                 .then(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                    $location.url("/website/" + vm.wid + "/page");
                 })
         }
 
@@ -64,7 +64,7 @@
             PageService
                 .deletePage(vm.pid)
                 .then(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                    $location.url("/website/" + vm.wid + "/page");
                 })
         }
     }

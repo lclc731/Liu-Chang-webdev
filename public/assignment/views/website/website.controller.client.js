@@ -8,9 +8,9 @@
         .controller('EditWebsiteController', EditWebsiteController)
         .controller('NewWebsiteController', NewWebsiteController);
 
-     function WebsiteListController($routeParams, WebsiteService) {
+     function WebsiteListController(WebsiteService, loggedin) {
          var vm = this;
-         vm.uid = $routeParams.uid;
+         vm.uid = loggedin._id;
          WebsiteService
              .findAllWebsitesForUser(vm.uid)
              .then(function (websites) {
@@ -18,9 +18,9 @@
              });
      }
 
-     function NewWebsiteController($routeParams, WebsiteService, $location) {
+     function NewWebsiteController(WebsiteService, $location, loggedin) {
          var vm = this;
-         vm.uid = $routeParams.uid;
+         vm.uid = loggedin._id;
          WebsiteService
              .findAllWebsitesForUser(vm.uid)
              .then(function (websites) {
@@ -38,14 +38,14 @@
              WebsiteService
                  .createWebsite(vm.uid, website)
                  .then(function () {
-                     $location.url("/user/" + vm.uid + "/website");
+                     $location.url("/website");
                  })
          }
      }
 
-     function EditWebsiteController($routeParams, WebsiteService, $location) {
+     function EditWebsiteController($routeParams, WebsiteService, $location, loggedin) {
          var vm = this;
-         vm.uid = $routeParams.uid;
+         vm.uid = loggedin._id;
          vm.wid = $routeParams.wid;
          WebsiteService
              .findAllWebsitesForUser(vm.uid)
@@ -65,7 +65,7 @@
              WebsiteService
                  .updateWebsite(vm.wid, website)
                  .then(function () {
-                    $location.url("/user/" + vm.uid + "/website");
+                    $location.url("/website");
              });
          }
 
@@ -73,7 +73,7 @@
              WebsiteService
                  .deleteWebsite(websiteId)
                  .then(function () {
-                     $location.url("/user/" + vm.uid + "/website");
+                     $location.url("/website");
                  })
          }
      }
