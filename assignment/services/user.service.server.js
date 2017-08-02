@@ -3,6 +3,8 @@
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
 
 module.exports = function(app, models) {
     var users = [];
@@ -27,6 +29,30 @@ module.exports = function(app, models) {
     app.get('/api/checkLoggedIn', checkLoggedIn);
     app.post('/api/register', register);
     app.post('/api/logout', logout);
+
+    app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+    app.get('/auth/google/callback',
+        passport.authenticate('google', {
+            successRedirect: '/#!/profile',
+            failureRedirect: '/#!/login'
+        }));
+
+    var googleConfig = {
+        clientID: process.env.GOOGLE_CLIENT_ID || '776536993934-01372f897bfq2g3d4deqiqd300b04mju.apps.googleusercontent.com',
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET || '3pSWjYHN4enk83onEvAIj7T5',
+        callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
+    };
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+    function googleStrategy(token, refreshToken, profile, done) {
+        models
+            .userModel
+            .findUserByGoogleId(profile.id)
+            .then(function () {
+
+            });
+    }
 
     passport.use('LocalStrategy', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);

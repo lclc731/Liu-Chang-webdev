@@ -13,7 +13,9 @@ module.exports = function(mongoose){
         'updateUser' : updateUser,
         'removeWebsiteFromUser' : removeWebsiteFromUser,
         'insertWebsiteToUser' : insertWebsiteToUser,
-        'deleteUser' : deleteUser
+        'deleteUser' : deleteUser,
+
+        'findUserByGoogleId' : findUserByGoogleId
     };
 
     return api;
@@ -98,5 +100,9 @@ module.exports = function(mongoose){
         return userModel.remove({
             _id : userId
         });
+    }
+
+    function findUserByGoogleId(googleId) {
+        return userModel.findOne({'google.id' : googleId});
     }
 };
