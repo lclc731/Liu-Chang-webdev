@@ -18,11 +18,13 @@
                 .login(username, password)
                 .then(
                     function (user) {
-                        if (user) {
+                        if (user === null) {
+                            vm.error = "Password is not correct.";
+                        } else {
                             $location.url("/profile");
                         }
                     },
-                    function (error) {
+                    function (err) {
                         vm.error = "Username does not exist.";
                     });
         }

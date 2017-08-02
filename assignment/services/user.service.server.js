@@ -4,7 +4,7 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app, models) {
     var users = [];
@@ -43,15 +43,47 @@ module.exports = function(app, models) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || '3pSWjYHN4enk83onEvAIj7T5',
         callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
     };
+
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
     function googleStrategy(token, refreshToken, profile, done) {
         models
             .userModel
             .findUserByGoogleId(profile.id)
-            .then(function () {
-
-            });
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var email = profile.emails[0].value;
+                        var emailParts = email.split("@");
+                        var newGoogleUser = {
+                            username:  emailParts[0],
+                            password: "0",
+                            firstName: profile.name.givenName,
+                            lastName:  profile.name.familyName,
+                            email:     email,
+                            google: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return model
+                            .createUser(newGoogleUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
     }
 
     passport.use('LocalStrategy', new LocalStrategy(localStrategy));
@@ -62,11 +94,13 @@ module.exports = function(app, models) {
     function localStrategy(username, password, done) {
         models
             .userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if(user.username === username && user.password === password) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
+                    } else if (user && !bcrypt.compareSync(password, user.password)) {
+                        return done(null, null);
                     } else {
                         return done(null, false);
                     }
@@ -110,6 +144,7 @@ module.exports = function(app, models) {
 
     function register(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         models
             .userModel
             .createUser(user)
@@ -130,26 +165,14 @@ module.exports = function(app, models) {
         var user = req.body;
         models
             .userModel
-            .findUserByUsername(user.username)
+            .createUser(user)
             .then(
-                function (response) {
-                    if (response) {
-                        res.sendStatus(400).send(error);
-                    } else {
-                        models
-                            .userModel
-                            .createUser(user)
-                            .then(
-                                function (newUser) {
-                                    res.json(newUser);
-                                },
-                                function (error) {
-                                    res.sendStatus(400).send(error);
-                                }
-                            );
-                    }
-                }
-            );
+                function (user) {
+                    res.json(user);
+                },
+                function (error) {
+                    res.send(error);
+                });
     }
 
     function findUserAllUser(req, res) {
