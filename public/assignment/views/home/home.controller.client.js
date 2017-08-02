@@ -6,8 +6,9 @@
         .module("WebAppMaker")
         .controller("HomeController", HomeController);
 
-    function HomeController($location) {
+    function HomeController(currentUser) {
         var vm = this;
+        vm.currentUser = currentUser;
     }
 
 })();

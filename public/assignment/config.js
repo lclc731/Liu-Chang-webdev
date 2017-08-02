@@ -9,9 +9,12 @@
     function configuration($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl : "/views/home.view.client.html",
+                templateUrl : "/views/home/home.view.client.html",
                 controller: "HomeController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             })
             .when('/register', {
                 templateUrl : "/views/user/register.view.client.html",
@@ -133,21 +136,20 @@
         return deferred.promise;
     };
 
-    // var checkCurrentUser = function ($q, $timeout, $http, $location, $rootScope) {
-    //     var deferred = $q.defer();
-    //
-    //     $http
-    //         .get('/api/loggedin')
-    //         .then(function(response) {
-    //             var user = response.data;
-    //             if (user === '0') {
-    //                 user = null;
-    //             }
-    //             deferred.resolve(user);
-    //
-    //         });
-    //     return deferred.promise;
-    // };
+    var checkCurrentUser = function ($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+
+        $http
+            .get('/api/checkLoggedIn')
+            .then(function(response) {
+                var user = response.data;
+                if (user === '0') {
+                    user = null;
+                }
+                deferred.resolve(user);
+            });
+        return deferred.promise;
+    };
 
 
 })();
