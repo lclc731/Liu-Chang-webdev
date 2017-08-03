@@ -25,6 +25,10 @@
         vm.newPage = newPage;
 
         function newPage(name, description) {
+            if (name === undefined || name === null || name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
             var page = {
                 name: name,
                 description: description
@@ -53,6 +57,10 @@
             });
 
         function updatePage(page) {
+            if (page.name === undefined || page.name === null || page.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
             PageService
                 .updatePage(vm.pid, page)
                 .then(function () {

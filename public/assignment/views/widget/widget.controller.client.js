@@ -72,6 +72,11 @@
         vm.widget = widget;
 
         function createWidget(widget) {
+            if (widget.name === undefined || widget.name === null || widget.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
                 if (vm.widget.url === null || vm.widget.url === undefined) {
                     vm.createError = "Url is required for Image/Youtube";
@@ -116,6 +121,11 @@
         vm.deleteWidget = deleteWidget;
 
         function editWidget(widget) {
+            if (widget.name === undefined || widget.name === null || widget.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+
             if (vm.widgetType === 'HTML' || vm.widgetType === 'YOUTUBE' || vm.widgetType === 'IMAGE' || vm.widgetType === 'TEXTINPUT') {
                 widget.size = 1;
             }

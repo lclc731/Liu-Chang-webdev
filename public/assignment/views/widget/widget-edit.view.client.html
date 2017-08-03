@@ -18,6 +18,7 @@
         </a>
     </div>
 </nav>
+<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
 
 <div ng-switch="model.widget.type" class="container">
     <div ng-switch-when="HEADING">

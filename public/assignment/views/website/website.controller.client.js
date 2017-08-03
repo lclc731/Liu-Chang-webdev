@@ -29,6 +29,10 @@
 
          vm.newWebsite = newWebsite;
          function newWebsite(name, description) {
+             if (name === undefined || name === null || name === "") {
+                 vm.error = "Name cannot be empty.";
+                 return;
+             }
              var website = {
                  name: name,
                  developId: "",
@@ -62,6 +66,11 @@
          vm.deleteWebsite = deleteWebsite;
 
          function updateWebsite(website) {
+             if (website.name === undefined || website.name === null || website.name === "") {
+                 vm.error = "Name cannot be empty.";
+                 return;
+             }
+
              WebsiteService
                  .updateWebsite(vm.wid, website)
                  .then(function () {
