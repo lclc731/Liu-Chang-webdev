@@ -12,6 +12,16 @@
                 templateUrl: "/views/home.html",
                 controller: "homeController",
                 controllerAs: "model"
+            })
+            .when('/login', {
+                templateUrl: "/views/login.html",
+                controller: "loginController",
+                controllerAs: "model"
+            })
+            .when('/register', {
+                templateUrl: "/views/register.html",
+                controller: "registerController",
+                controllerAs: "model"
             });
     }
 })();
