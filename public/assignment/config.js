@@ -9,7 +9,7 @@
     function configuration($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl : "/views/home/home.view.client.html",
+                templateUrl : "/views/home/home.html",
                 controller: "HomeController",
                 controllerAs: "model",
                 resolve: {
@@ -17,12 +17,12 @@
                 }
             })
             .when('/register', {
-                templateUrl : "/views/user/register.view.client.html",
+                templateUrl : "/views/user/register.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
             .when('/login', {
-                templateUrl : "/views/user/login.view.client.html",
+                templateUrl : "/views/user/login.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
