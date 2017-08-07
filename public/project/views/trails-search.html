@@ -1,0 +1,16 @@
+{{model.hello}}
+
+<h2>Trails API</h2>
+<input ng-model="model.title" class="form-control"
+        placeholder="city">
+<a class="btn btn-primary btn-block"
+        ng-click="model.searchTrail(model.title)">Search</a>
+<h3>Search Results</h3>
+
+<ul class="list-group">
+    <li ng-repeat="trail in model.trails" class="list-group-item">
+        {{trail.city}}
+        {{trail.state}}
+        {{trail.name}}
+    </li>
+</ul>

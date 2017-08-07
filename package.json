@@ -21,7 +21,8 @@
     "passport-local": "^1.0.0",
     "q": "^1.5.0",
     "sessions": "0.0.2-7",
-    "textangular": "^1.5.16"
+    "textangular": "^1.5.16",
+    "unirest": "^0.5.1"
   },
   "devDependencies": {},
   "scripts": {

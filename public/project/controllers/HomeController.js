@@ -4,9 +4,9 @@
 (function () {
     angular
         .module("WebAppProject")
-        .controller("registerController", registerController);
+        .controller("HomeController", HomeController);
 
-    function registerController() {
+    function HomeController() {
         var vm = this;
     }
 })();

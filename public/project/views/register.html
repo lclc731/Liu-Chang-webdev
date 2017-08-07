@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Login</a>
+                        <a href="#!/login">Login</a>
                     </li>
                 </ul>
             </div>
@@ -30,32 +30,46 @@
         <div class="omb_login">
 
             <div class="col-md-8 col-md-offset-2">
-                <form role="form" method="POST" action="#">
-
+                <form role="form">
                     <h3 class="omb_authTitle">Register</h3>
-
                     <fieldset>
                         <legend>Account Details</legend>
 
                         <div class="form-group col-md-6">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" name="" id="username" placeholder="Userame">
+                            <input type="text"
+                                   class="form-control"
+                                   id="username"
+                                   placeholder="Userame"
+                                   ng-model="username">
                         </div>
 
 
                         <div class="form-group col-md-6">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" name="" id="password" placeholder="Password">
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Password"
+                                   ng-model="password">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="confirm_password">Confirm Password</label>
-                            <input type="password" class="form-control" name="" id="confirm_password" placeholder="Confirm Password">
+                            <input type="password"
+                                   class="form-control"
+                                   id="confirm_password"
+                                   placeholder="Confirm Password"
+                                   ng-model="vpassword">
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control" name="" id="" placeholder="Email">
+                            <label for="email">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   placeholder="Email"
+                                   ng-model="email">
                         </div>
 
                     </fieldset>
@@ -64,22 +78,25 @@
                         <div class="col-md-12">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input type="checkbox"
+                                           ng-model="accept">
                                     I accept the terms and conditions.
                                 </label>
                             </div>
                         </div>
                     </div>
 
+                    <div ng-show="model.error" class="help-block">{{model.error}}</div>
+
                     <div class="form-group">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">
+                            <a class="btn btn-primary"
+                               ng-click="model.register(username, password, vpassword, email, accept)">
                                 Register
-                            </button>
-                            <a href="#">Already have an account?</a>
+                            </a>
+                            <a href="#!/login">Already have an account?</a>
                         </div>
                     </div>
-
                 </form>
             </div>
 
