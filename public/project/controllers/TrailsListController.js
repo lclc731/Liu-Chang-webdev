@@ -4,9 +4,20 @@
 (function () {
     angular
         .module("WebAppProject")
-        .controller("trailsListController", trailsListController);
+        .controller("TrailsListController", TrailsListController);
 
-    function trailsListController() {
+    function TrailsListController(TrailsService) {
         var vm = this;
+        vm.searchTrail = searchTrail;
+
+        function searchTrail(city) {
+
+            TrailsService
+                .searchTrails(city)
+                .then(function (data) {
+                    vm.trails = data;
+                });
+
+        }
     }
 })();

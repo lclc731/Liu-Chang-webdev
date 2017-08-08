@@ -13,8 +13,8 @@
 
         return services;
 
-        function searchTrails(title) {
-            var url = "/api/search?title=" + title;
+        function searchTrails(city) {
+            var url = "/api/search?city=" + city;
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

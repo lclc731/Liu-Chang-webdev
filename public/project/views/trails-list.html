@@ -26,71 +26,50 @@
         </div>
         <!-- /.container -->
     </nav>
-
-
+    <div>
+        <h2></h2>
+    </div>
     <div class="container">
-        <h1>Search for Subject, Keyword, Help or Ideas...</h1>
-        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <form method="get" action="/" class="form-inline" >
+                    <input class="col-xs-5 col-sm-4"
+                           ng-model="model.city" class="form-control"
+                           placeholder="city">
+                    <input class="col-xs-5 col-sm-4"
+                           ng-model="model.state" class="form-control"
+                           placeholder="state">
+                    <!--<select name="country" id="country">-->
 
-        <h2>Most Popular<p class="lead">Subject | A-Z List</p></h2>
+                    <!--</select>-->
 
-        <p>MISSION: The State College of Florida Libraries' Subject Guides and Tutorials are customized by SCF Librarians to support students with courses, assignments, skills and information literacy. Write to suggest a guide or have one created for a course. </p>
-
-        <div class="row text-center portfolio">
-
-            <div class="col-lg-2 col-sm-3 col-xs-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="#">
-                            <img src="https://s3.amazonaws.com/libapps/accounts/390/images/BeFunky_sub1.jpg.jpg" class="img-thumbnail img-responsive">
-                        </a>
-                    </div>
-                    <div class="panel-footer">
-                        Find, evaluate and use scholarly and peer reviewed articles.
-                    </div>
-                </div>
+                    <a class="btn btn-primary"
+                       ng-click="model.searchTrail(model.city)">Search</a>
+                </form>
             </div>
-            <div class="clear"></div>
-            <div class="col-lg-2 col-sm-3 col-xs-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="#">
-                            <img src="https://s3.amazonaws.com/libapps/accounts/390/images/BeFunky_sub2.jpg.jpg" class="img-thumbnail img-responsive">
-                        </a>
-                    </div>
-                    <div class="panel-footer">
-                        Find support for literature, poetry and short story research.
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="col-lg-2 col-sm-3 col-xs-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="#">
-                            <img src="https://s3.amazonaws.com/libapps/accounts/390/images/BeFunky_sub3.jpg.jpg" class="img-thumbnail img-responsive">
-                        </a>
-                    </div>
-                    <div class="panel-footer">
-                        Research and APA citation help for NUR.
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="col-lg-2 col-sm-3 col-xs-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="#">
-                            <img src="https://s3.amazonaws.com/libapps/accounts/390/images/BeFunky_sub4.jpg.jpg" class="img-thumbnail img-responsive">
-                        </a>
-                    </div>
-                    <div class="panel-footer">
-                        Resources for argumentative and persuasive speech essays and speeches. ENC 1101, SPS 1608
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
         </div>
-
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <table id="tableReport" class="table table-hover table-striped"
+                       ng-repeat="trail in model.trails">
+                    <tbody>
+                    <tr class="media" id="carga_30" data-id="30">
+                        <td class="media-left">
+                            <h2>30</h2>
+                        </td>
+                        <td class="media-body">
+                            <h4 class="media-heading font-yellow text-bold hidden-xs">{{trail.name}}</h4>
+                            <span><strong>Status:</strong> <span class="label label-info">Carregando</span></span>
+                            <span><strong>Tipo:</strong> Conjugada</span>
+                            <span class="hidden-xs"><strong>City:</strong> {{trail.city}} </span>
+                            <span class="hidden-xs"><strong>State:</strong> {{trail.state}} </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

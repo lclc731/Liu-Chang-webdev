@@ -37,11 +37,6 @@
                 templateUrl: "/views/trails-view.html",
                 controller: "TrailsViewController",
                 controllerAs: "model"
-            })
-            .when('/trails/search', {
-                templateUrl: "/views/trails-search.html",
-                controller: "TrailsSearchController",
-                controllerAs: "model"
             });
     }
 })();
