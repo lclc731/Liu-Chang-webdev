@@ -33,7 +33,7 @@
                 controller: "TrailsListController",
                 controllerAs: "model"
             })
-            .when('/trails/view', {
+            .when('/trails/:unique_id', {
                 templateUrl: "/views/trails-view.html",
                 controller: "TrailsViewController",
                 controllerAs: "model"

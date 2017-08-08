@@ -22,6 +22,7 @@
             //     .login(username, password)
                 .then(
                     function (user) {
+                        console.log(user);
                         if (user === null || user === undefined || username === "") {
                             vm.error = "Password is not correct.";
                         } else {
@@ -59,6 +60,7 @@
                         vm.error = "Username already exists.";
                     }
                     else {
+                        console.log("create");
                         var NewUser = {
                             username: username,
                             password: password,

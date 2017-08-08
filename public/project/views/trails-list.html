@@ -56,15 +56,19 @@
                        ng-repeat="trail in model.trails">
                     <tbody>
                     <tr class="media" id="carga_30" data-id="30">
-                        <td class="media-left">
-                            <h2>30</h2>
-                        </td>
+                        <!--<td class="media-left">-->
+                            <!--<h2>30</h2>-->
+                        <!--</td>-->
                         <td class="media-body">
-                            <h4 class="media-heading font-yellow text-bold hidden-xs">{{trail.name}}</h4>
+                            <a class="media-heading font-yellow text-bold hidden-xs"
+                                ng-click="model.trailView(trail.unique_id)">{{trail.name}}</a>
                             <span><strong>Status:</strong> <span class="label label-info">Carregando</span></span>
                             <span><strong>Tipo:</strong> Conjugada</span>
                             <span class="hidden-xs"><strong>City:</strong> {{trail.city}} </span>
                             <span class="hidden-xs"><strong>State:</strong> {{trail.state}} </span>
+\
+                            <span class="hidden-xs glyphicon glyphicon-thumbs-up"> 10 </span>
+                            <span class="hidden-xs glyphicon glyphicon-thumbs-down"> 5 </span>
                         </td>
                     </tr>
                     </tbody>
@@ -72,4 +76,5 @@
             </div>
         </div>
     </div>
+    {{model.trails}}
 </div>
