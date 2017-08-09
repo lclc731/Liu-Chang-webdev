@@ -10,17 +10,16 @@
         var vm = this;
         vm.searchTrail = searchTrail;
         vm.trailView = trailView;
-        vm.ids = [];
-
         vm.trails = [];
         var results = [];
-        var adds = [];
-        var haves = [];
+        vm.ids = [];
 
         function searchTrail(city) {
             TrailsService
                 .searchTrails(city)
                 .then(function (data) {
+                    vm.trails = [];
+                    results = [];
                     for (var i = 0; i < data.length; i++) {
                         var trail = data[i];
                         var id = trail.unique_id;
@@ -39,6 +38,7 @@
                             image : trail.activities[0].thumbnail,
                             likes : 0
                         };
+                        console.log(newTrail);
                         results.push(newTrail);
 
                     }
@@ -52,16 +52,18 @@
 
                     $q.all(promises)
                         .then(function(trails) {
-                            for (var Trail in trails) {
-                                console.log(Trail);
+                            for (var i = 0; i < trails.length; i++) {
+                                if (trails[i]) {
+                                    vm.trails.push(trails[i]);
+                                } else {
+                                    TrailsService
+                                        .createTrail(results[i])
+                                        .then(
+                                            function (newtrail) {
+                                                vm.trails.push(newtrail);
+                                            });
+                                }
                             }
-                            // if (trail !== null && trail !== undefined) {
-                            //     console.log(trail);
-                            //     haves.push(trail.unique_id);
-                            // }
-                        })
-                        .then(function () {
-                            console.log(haves);
                         });
                 });
 
