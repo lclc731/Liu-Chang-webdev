@@ -12,7 +12,7 @@ module.exports = function(mongoose){
         state : String,
         country : String,
         lat : String,
-        lon : String,
+        lon : S,
         description : String,
         length : String,
         url : String,
