@@ -4,9 +4,19 @@
 (function () {
     angular
         .module("WebAppProject")
-        .controller("trailsViewController", trailsViewController);
+        .controller("TrailsViewController", TrailsViewController);
 
-    function trailsViewController() {
+    function TrailsViewController($routeParams, TrailsService, $location) {
         var vm = this;
+        var trail_id = $routeParams.unique_id;
+
+        TrailsService
+            .findTrailByTrailId(trail_id)
+            .then(function (trail) {
+                vm.trail = trail;
+            });
+
+        vm.mapurl = "";
+
     }
 })();

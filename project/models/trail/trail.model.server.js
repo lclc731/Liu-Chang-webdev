@@ -8,7 +8,7 @@ module.exports = function(mongoose){
     var api = {
         'createTrail' : createTrail,
         // 'findTrailById' : findTrailById,
-        'findTrailByTrailId' : findTrailByTrailId,
+        'findTrailByTrailId' : findTrailByTrailId
         // 'updateTrail' : updateTrail,
         // 'deleteTrail' : deleteTrail
     };

@@ -28,24 +28,63 @@
     </nav>
 
     <div class="container">
-        <div class="row-fluid">
-            <div class="span8">
-                <iframe width="50%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
-            </div>
-            <div class="span4">
-                <h2>Snail mail</h2>
-                <address>
-                    <strong>Hythe Window Cleaning</strong><br>
-                    15 Springfield Way<br>
-                    Hythe<br>
-                    Kent<br>
-                    United Kingdon<br>
-                    CT21 5SH<br>
-                    <abbr title="Phone">P:</abbr> 01234 567 890
-                </address>
-            </div>
+            <h2>{{model.trail.name}}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Description:</h4>
+                    <p>{{model.trail.description}}</p>
+                    <h5>Length: {{model.trail.length}} miles</h5>
+                    <h6>City: {{model.trail.city}}</h6>
+                    <h6>State: {{model.trail.state}}</h6>
+                    <button class="glyphicon glyphicon-thumbs-up"></button>
 
-        </div>
+                    <p> </p>
+
+                    <a href="{{model.trail.url}}">Website Link</a>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <iframe width="70%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                                src="https://maps.google.com/maps?q=47.6357979,-122.3497695&hl=es;z=14&amp;output=embed"></iframe>
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <h3>Write a comment:</h3>
+                    <form accept-charset="UTF-8" action="" method="post">
+                        <input id="ratings-hidden" name="rating" type="hidden">
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+
+                        <div class="text-right">
+                            <div class="stars starrr" data-rating="0"></div>
+                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                                <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                            <button class="btn btn-success btn-lg" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                    <div class="page-header">
+                        <h3><small class="pull-right">5 comments</small> Comment list </h3>
+                    </div>
+                    <div class="comments-list">
+                        <div class="media">
+                            <p class="pull-right"><small>5 days ago</small></p>
+                            <div class="media-body">
+
+                                <h4 class="media-heading user_name">Baltej Singh</h4>
+                                Wow! this is really great.
+
+                                <!--<p><small><a href="">Like</a> - <a href="">Share</a></small></p>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul>
+
+                    </ul>
+                </div>
+            </div>
     </div>
 
 </div>
