@@ -8,5 +8,10 @@
 
     function HomeController() {
         var vm = this;
+        // vm.searchTrail = searchTrail;
+        //
+        // function searchTrail(city) {
+        //
+        // }
     }
 })();

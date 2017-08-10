@@ -6,10 +6,10 @@
         .module("WebAppProject")
         .controller("TrailsViewController", TrailsViewController);
 
-    function TrailsViewController($routeParams, TrailsService, $sce) {
+    function TrailsViewController($routeParams, TrailsService, ReviewService, $sce, $location) {
         var vm = this;
         var trail_id = $routeParams.unique_id;
-
+        vm.createReview = createReview;
 
         TrailsService
             .findTrailByTrailId(trail_id)
@@ -20,6 +20,29 @@
             });
 
 
+        ReviewService
+            .findAllReviewForTrail(trail_id)
+            .then(function (reviews) {
+                vm.reviews = reviews;
+                vm.reviewslength = reviews.length;
+            });
 
+        function createReview(context) {
+            var review = {
+                _trail : trail_id,
+                context : context
+            };
+
+            ReviewService
+                .createReview(review)
+                .then(function (newreview) {
+                    // $location.url("/trails/" + trail_id);
+                        // TrailsService
+                        //     .insertReviewToTrail(newreview)
+                        //     .then(function () {
+                        //
+                        //     })
+                    });
+        }
     }
 })();

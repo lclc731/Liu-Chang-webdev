@@ -5,6 +5,7 @@ module.exports = function(app, models) {
     var unirest = require('unirest');
     app.get('/api/search', searchTrail);
     app.get('/api/trail/:unique_id', findTrailByTrailId);
+    app.get('/api/city', findAllTrailForCity);
 
     app.post('/api/trail', createTrail);
 
@@ -12,7 +13,6 @@ module.exports = function(app, models) {
     
     function searchTrail(req, res) {
         var city = req.query.city;
-
         unirest.get("https://trailapi-trailapi.p.mashape.com/?q[activities_activity_type_name_eq]=hiking&q[city_cont]=" + city)
             .header("X-Mashape-Key", "Ih1ckVsUevmsheQ2urJQIHA46vlEp1t4mMUjsneYlVDpqpHh4v")
             .header("Accept", "text/plain")
@@ -34,6 +34,21 @@ module.exports = function(app, models) {
                     } else {
                         res.send(null);
                     }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+    }
+
+    function findAllTrailForCity(req, res) {
+        var cityname = req.query.cityname;
+
+        models
+            .trailModel
+            .findAllTrailForCity(cityname)
+            .then(
+                function(trails) {
+                    res.json(trails);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);

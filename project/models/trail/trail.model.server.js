@@ -8,7 +8,8 @@ module.exports = function(mongoose){
     var api = {
         'createTrail' : createTrail,
         // 'findTrailById' : findTrailById,
-        'findTrailByTrailId' : findTrailByTrailId
+        'findTrailByTrailId' : findTrailByTrailId,
+        'findAllTrailForCity' : findAllTrailForCity
         // 'updateTrail' : updateTrail,
         // 'deleteTrail' : deleteTrail
     };
@@ -24,6 +25,10 @@ module.exports = function(mongoose){
     // }
 
     function findTrailByTrailId(unique_id){
-        return trailModel.findOne({unique_id : unique_id})
+        return trailModel.findOne({unique_id : unique_id});
+    }
+
+    function findAllTrailForCity(city) {
+        return trailModel.find({city : city});
     }
 };

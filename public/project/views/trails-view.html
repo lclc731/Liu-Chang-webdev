@@ -54,27 +54,30 @@
                 <div class="col-md-10">
                     <h3>Write a comment:</h3>
                     <form accept-charset="UTF-8" action="" method="post">
-                        <input id="ratings-hidden" name="rating" type="hidden">
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+                        <input id="ratings-hidden" name="rating" type="hidden" >
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                                  placeholder="Enter your review here..." rows="5"
+                                  ng-model="model.context"></textarea>
 
                         <div class="text-right">
                             <div class="stars starrr" data-rating="0"></div>
                             <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                                 <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                            <button class="btn btn-success btn-lg" type="submit">Submit</button>
+                            <button class="btn btn-success btn-lg" type="submit"
+                                    ng-click="model.createReview(model.context)">Submit</button>
                         </div>
                     </form>
 
                     <div class="page-header">
-                        <h3><small class="pull-right">5 comments</small> Comment list </h3>
+                        <h3><small class="pull-right">{{model.reviewslength}} comments</small> Comment list </h3>
                     </div>
-                    <div class="comments-list">
+                    <div class="comments-list" ng-repeat="review in model.reviews">
                         <div class="media">
-                            <p class="pull-right"><small>5 days ago</small></p>
+                            <!--<p class="pull-right"><small>5 days ago</small></p>-->
                             <div class="media-body">
 
-                                <h4 class="media-heading user_name">Baltej Singh</h4>
-                                Wow! this is really great.
+                                <h4 class="media-heading user_name">{{review._reviewer}}</h4>
+                                <p>{{review.context}}</p>
 
                                 <!--<p><small><a href="">Like</a> - <a href="">Share</a></small></p>-->
                             </div>

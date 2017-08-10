@@ -10,6 +10,7 @@
         var services = {
             "searchTrails" : searchTrails,
             "findTrailByTrailId" : findTrailByTrailId,
+            "findAllTrailForCity" : findAllTrailForCity,
             "createTrail" : createTrail
         };
 
@@ -25,6 +26,14 @@
 
         function findTrailByTrailId(unique_id) {
             var url = "/api/trail/" + unique_id;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findAllTrailForCity(city) {
+            var url = "/api/city?cityname=" + city;
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

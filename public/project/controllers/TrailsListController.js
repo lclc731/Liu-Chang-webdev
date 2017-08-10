@@ -6,13 +6,12 @@
         .module("WebAppProject")
         .controller("TrailsListController", TrailsListController);
 
-    function TrailsListController(TrailsService, $location, $q) {
+    function TrailsListController($routeParams, TrailsService, $location, $q) {
         var vm = this;
         vm.searchTrail = searchTrail;
         vm.trailView = trailView;
         vm.trails = [];
         var results = [];
-        vm.ids = [];
 
         function searchTrail(city) {
             TrailsService
@@ -22,8 +21,6 @@
                     results = [];
                     for (var i = 0; i < data.length; i++) {
                         var trail = data[i];
-                        var id = trail.unique_id;
-
                         var newTrail = {
                             unique_id : trail.unique_id,
                             name : trail.name,
@@ -38,9 +35,7 @@
                             image : trail.activities[0].thumbnail,
                             likes : 0
                         };
-                        console.log(newTrail);
                         results.push(newTrail);
-
                     }
                 })
                 .then(function () {
@@ -53,64 +48,25 @@
                     $q.all(promises)
                         .then(function(trails) {
                             for (var i = 0; i < trails.length; i++) {
-                                if (trails[i]) {
-                                    vm.trails.push(trails[i]);
-                                } else {
+                                if (!trails[i]) {
                                     TrailsService
                                         .createTrail(results[i])
                                         .then(
                                             function (newtrail) {
-                                                vm.trails.push(newtrail);
+
                                             });
                                 }
                             }
+                        })
+                        .then(function () {
+                            TrailsService
+                                .findAllTrailForCity(city)
+                                .then(
+                                    function (resultTrails) {
+                                        vm.trails = resultTrails;
+                                    });
                         });
                 });
-
-// $q.all(promises)
-            // .then(
-            //     function(trail) {
-            //         console.log(trail);
-            //         if (trail) {
-            //             vm.trails.push(trail);
-            //             console("1");
-            //         } else {
-            //             console("2");
-            //             TrailsService
-            //                 .createTrail(results[i])
-            //                 .then(
-            //                     function (newtrail) {
-            //                         vm.trails.push(newtrail);
-            //                     });
-            //         }
-            //     });
-            // for (var i = 0; i < results.length; i++) {
-            //     TrailsService
-            //         .findTrailByTrailId(results[i].unique_id)
-            //         .then(
-            //             function(trail) {
-            //                 console.log(trail);
-            //                 if (trail) {
-            //                     vm.trails.push(trail);
-            //                     console("1");
-            //                 } else {
-            //                     console("2");
-            //                     TrailsService
-            //                         .createTrail(results[i])
-            //                         .then(
-            //                             function (newtrail) {
-            //                                 vm.trails.push(newtrail);
-            //                             });
-            //
-            //                 }
-            //             });
-            // }
-
-
-            // for (var i = 0; i < results.length; i++) {
-            //     console.log(results[i].unique_id);
-            // }
-
         }
 
         function trailView(unique_id) {

@@ -28,7 +28,7 @@
                 controller: "ProfileController",
                 controllerAs: "model"
             })
-            .when('/trails/list', {
+            .when('/trails/search', {
                 templateUrl: "/views/trails-list.html",
                 controller: "TrailsListController",
                 controllerAs: "model"
