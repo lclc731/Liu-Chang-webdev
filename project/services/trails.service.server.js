@@ -8,6 +8,7 @@ module.exports = function(app, models) {
 
     app.post('/api/trail', createTrail);
 
+
     
     function searchTrail(req, res) {
         var city = req.query.city;

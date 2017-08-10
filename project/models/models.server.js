@@ -23,12 +23,13 @@ module.exports = function() {
 
     var userModel = require("./user/user.model.server.js")(mongoose);
     var trailModel = require("./trail/trail.model.server.js")(mongoose, userModel);
-    // var pageModel =  require("./page/page.model.server.js")(mongoose, websiteModel);
+    var reviewModel =  require("./review/review.model.server")(mongoose, trailModel);
     // var widgetModel = require("./widget/widget.model.server.js")(mongoose, pageModel);
 
     var models = {
         'userModel' : userModel,
-        'trailModel' : trailModel
+        'trailModel' : trailModel,
+        'reviewModel' : reviewModel
     };
 
     return models;

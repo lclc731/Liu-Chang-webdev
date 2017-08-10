@@ -15,10 +15,10 @@
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Login</a>
+                        <a href="#!/login">Login</a>
                     </li>
                     <li>
-                        <a href="#">Sign up</a>
+                        <a href="#!/register">Sign up</a>
                     </li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                         <td class="media-body">
                             <!--<a class="media-heading font-yellow text-bold hidden-xs"-->
                                 <!--ng-click="model.trailView(trail.unique_id)">{{trail.name}}</a>-->
-                            <span><strong>Name:</strong> <span class="label label-info">{{trail.name}}</span></span>
+                            <span><a href="#!/trails/{{trail.unique_id}}" class="label label-info">{{trail.name}}</a></span>
                             <span><strong>Tipo:</strong> Conjugada</span>
                             <span class="hidden-xs"><strong>City:</strong> {{trail.city}} </span>
                             <span class="hidden-xs"><strong>State:</strong> {{trail.state}} </span>
@@ -75,5 +75,4 @@
             </div>
         </div>
     </div>
-    {{model.trails}}
 </div>

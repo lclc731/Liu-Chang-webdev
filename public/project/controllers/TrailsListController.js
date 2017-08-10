@@ -111,23 +111,6 @@
             //     console.log(results[i].unique_id);
             // }
 
-
-
-            // $location.url("/profile");
-
-            // for (var j = 0; j < results.length; j++) {
-            //     TrailsService
-            //         .findTrailByTrailId(results[j].unique_id)
-            //         .then(function (trail) {
-            //             if (trail === null) {
-            //                 TrailsService
-            //                     .createTrail(results[j])
-            //                     .then(function (trail) {
-            //
-            //                     });
-            //             }
-            //         });
-            // }
         }
 
         function trailView(unique_id) {
