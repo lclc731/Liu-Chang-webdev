@@ -11,15 +11,16 @@ module.exports = function(mongoose){
         firstName : String,
         lastName : String,
         email : String,
-        // websites : [{
-        //     type: Schema.Types.ObjectId,
-        //     ref : 'Website'
-        // }],
         dateCreated : {
             type : Date,
             default: Date.now
         }
 
+
+        // websites : [{
+        //     type: Schema.Types.ObjectId,
+        //     ref : 'Website'
+        // }],
         // google: {
         //     id: String,
         //     token: String

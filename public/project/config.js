@@ -26,7 +26,10 @@
             .when('/profile', {
                 templateUrl: "/views/profile.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkLoggedIn
+                }
             })
             .when('/trails/search', {
                 templateUrl: "/views/trails-list.html",
@@ -39,4 +42,19 @@
                 controllerAs: "model"
             });
     }
+
+    var checkLoggedIn = function($q, UserService, $location) {
+        var deferred = $q.defer();
+        UserService
+            .checkLoggedIn()
+            .then(function (user) {
+                if (user !== '0') {
+                    deferred.resolve(user);
+                } else {
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+        return deferred.promise;
+    };
 })();

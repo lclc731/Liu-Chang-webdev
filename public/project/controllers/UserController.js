@@ -18,8 +18,7 @@
                 return;
             }
             UserService
-                .findUserByCredentials(username, password)
-            //     .login(username, password)
+                .login(username, password)
                 .then(
                     function (user) {
                         console.log(user);
@@ -70,7 +69,7 @@
                         };
 
                         UserService
-                            .createUser(NewUser)
+                            .register(NewUser)
                             .then(function (newuser) {
                                 if (newuser) {
                                     $location.url("/profile");
@@ -81,7 +80,19 @@
         }
     }
 
-    function ProfileController($location, UserService) {
+    function ProfileController(loggedin, $location, UserService) {
+        var vm = this;
+        vm.userId = loggedin._id;
+        vm.user = loggedin;
+        vm.logout = logout;
 
+        function logout() {
+            UserService
+                .logout()
+                .then(function () {
+                    $location.url("/login");
+                });
+        }
     }
+
 })();
