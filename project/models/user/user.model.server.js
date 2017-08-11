@@ -11,7 +11,8 @@ module.exports = function(mongoose){
         'findUserByUsername' : findUserByUsername,
         'findUserByCredentials' : findUserByCredentials,
         'updateUser' : updateUser,
-        'deleteUser' : deleteUser
+        'deleteUser' : deleteUser,
+        'findUserByFacebookId': findUserByFacebookId
     };
 
     return api;
@@ -77,5 +78,9 @@ module.exports = function(mongoose){
         return userModel.remove({
             _id : userId
         });
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return userModel.findOne({'facebook.id': facebookId});
     }
 };

@@ -33,16 +33,60 @@ module.exports = function(app, models) {
     app.post('/api/register', register);
     app.post('/api/logout', logout);
 
+    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
-        // app.post('api/search', searchTrail);
-    //
-    //
-    //
-    // function searchTrail() {
-    //
-    // }
-    
-    
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/#!/profile',
+            failureRedirect: '/#!/login'
+        }));
+
+    var facebookConfig = {
+        clientID : process.env. FACEBOOK_CLIENT_ID || '1907240392874501',
+        clientSecret : process.env. FACEBOOK_CLIENT_SECRET || '94332c7c757c7d6fbfcfbfb49032108b',
+        callbackURL : process.env. FACEBOOK_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
+    };
+
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        models
+            .userModel
+            .findUserByFacebookId(profile.id)
+            .then(function(user){
+                    if(user !== null){
+                        return done(null, user);
+                    }
+                    else{ //create a new user in db
+                        var newUser={
+                            username: profile.emails[0].value.split('@')[0],
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: profile.emails[0].value,
+                            facebook: {
+                                id: profile.id,
+                                token: token
+                            }
+                        };
+                        models
+                            .userModel
+                            .register(newUser)
+                            .then(function(user){
+                                if(user){
+                                    return done(null, user);
+                                }
+                                else{
+                                    return done(null, false);
+                                }
+                            })
+                    }
+                },
+                function(err){
+                    if(err){
+                        return done(err);
+                    }
+                });
+    }
 
 
     /*API implementation*/
@@ -220,4 +264,8 @@ module.exports = function(app, models) {
             res.send('0');
         }
     }
+
+
+
+
 };

@@ -14,17 +14,18 @@ module.exports = function(mongoose){
         dateCreated : {
             type : Date,
             default: Date.now
-        }
+        },
 
 
         // websites : [{
         //     type: Schema.Types.ObjectId,
         //     ref : 'Website'
         // }],
-        // google: {
-        //     id: String,
-        //     token: String
-        // }
+
+        facebook: {
+            id: String,
+            token: String
+        }
 
     }, {collection: 'user'});
 
