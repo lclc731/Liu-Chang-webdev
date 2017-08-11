@@ -10,6 +10,7 @@
         var services = {
             "searchTrails" : searchTrails,
             "findTrailByTrailId" : findTrailByTrailId,
+            "findTrailByUniqueId" : findTrailByUniqueId,
             "findAllTrailForCity" : findAllTrailForCity,
             "createTrail" : createTrail
         };
@@ -24,8 +25,16 @@
                 });
         }
 
-        function findTrailByTrailId(unique_id) {
-            var url = "/api/trail/" + unique_id;
+        function findTrailByTrailId(trailId) {
+            var url = "/api/trail/" + trailId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findTrailByUniqueId(unique_id) {
+            var url = "/api/trail/unique/" + unique_id;
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

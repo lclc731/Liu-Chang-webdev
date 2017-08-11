@@ -16,12 +16,6 @@ module.exports = function(mongoose){
             default: Date.now
         },
 
-
-        // websites : [{
-        //     type: Schema.Types.ObjectId,
-        //     ref : 'Website'
-        // }],
-
         facebook: {
             id: String,
             token: String

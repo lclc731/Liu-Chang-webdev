@@ -34,7 +34,7 @@
                     loggedin: checkLoggedIn
                 }
             })
-            .when('/trails/search', {
+            .when('/trails/search/:cityname', {
                 templateUrl: "/views/trails-list.html",
                 controller: "TrailsListController",
                 controllerAs: "model",
@@ -42,7 +42,7 @@
                     loggedin: checkCurrentUser
                 }
             })
-            .when('/trails/:unique_id', {
+            .when('/trails/:trailId', {
                 templateUrl: "/views/trails-view.html",
                 controller: "TrailsViewController",
                 controllerAs: "model",

@@ -44,7 +44,7 @@ module.exports = function(app, models) {
     var facebookConfig = {
         clientID : process.env. FACEBOOK_CLIENT_ID || '1907240392874501',
         clientSecret : process.env. FACEBOOK_CLIENT_SECRET || '94332c7c757c7d6fbfcfbfb49032108b',
-        callbackURL : process.env. FACEBOOK_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
+        callbackURL : process.env. FACEBOOK_CALLBACK_URL || 'http://localhost:5000/auth/facebook/callback'
     };
 
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -53,39 +53,43 @@ module.exports = function(app, models) {
         models
             .userModel
             .findUserByFacebookId(profile.id)
-            .then(function(user){
-                    if(user !== null){
+            .then(
+                function(user){
+                    if(user){
                         return done(null, user);
                     }
-                    else{ //create a new user in db
+                    else{
+                        var names = profile.displayName.split(" ");
+                        console.log(names);
                         var newUser={
-                            username: profile.emails[0].value.split('@')[0],
-                            firstName: profile.name.givenName,
-                            lastName: profile.name.familyName,
-                            email: profile.emails[0].value,
+                            username:  profile.id,
+                            password: "a",
+                            firstName: names[0],
+                            lastName:  names[2],
                             facebook: {
                                 id: profile.id,
                                 token: token
                             }
                         };
-                        models
+                        return models
                             .userModel
-                            .register(newUser)
-                            .then(function(user){
-                                if(user){
-                                    return done(null, user);
-                                }
-                                else{
-                                    return done(null, false);
-                                }
-                            })
+                            .createUser(newUser);
                     }
                 },
                 function(err){
                     if(err){
                         return done(err);
                     }
-                });
+                })
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
+
     }
 
 

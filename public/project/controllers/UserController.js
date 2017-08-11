@@ -58,7 +58,6 @@
                         vm.error = "Username already exists.";
                     }
                     else {
-                        console.log("create");
                         var NewUser = {
                             username: username,
                             password: password,

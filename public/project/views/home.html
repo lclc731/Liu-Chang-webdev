@@ -51,10 +51,12 @@
                 <h4>Search by city:</h4>
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
-                        <input type="text" class="form-control input-lg" placeholder="City name" />
+                        <input type="text" class="form-control input-lg" placeholder="City name"
+                        ng-model="city"/>
                         <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
+                            <i class="glyphicon glyphicon-search"
+                               ng-click="model.searchTrail(city)"></i>
                         </button>
                     </span>
                     </div>

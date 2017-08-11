@@ -8,13 +8,12 @@
 
     function TrailsViewController(loggedin, $routeParams, TrailsService, ReviewService, $sce, $location) {
         var vm = this;
-        var trail_id = $routeParams.unique_id;
+        vm.trailId = $routeParams.trailId;
         vm.createReview = createReview;
         vm.currentUser = loggedin;
 
-
         TrailsService
-            .findTrailByTrailId(trail_id)
+            .findTrailByTrailId(vm.trailId)
             .then(function (trail) {
                 vm.trail = trail;
                 var maphtml = "https://www.google.com/maps/embed/v1/search?key=AIzaSyB7hHsKvA3_Zz28HTPmIdS5dOmHjgM_UMM&q=" + vm.trail.lat + "," + vm.trail.lon;
@@ -23,7 +22,7 @@
 
 
         ReviewService
-            .findAllReviewForTrail(trail_id)
+            .findAllReviewForTrail(vm.trailId)
             .then(function (reviews) {
                 vm.reviews = reviews;
                 vm.reviewslength = reviews.length;
@@ -31,7 +30,7 @@
 
         function createReview(context) {
             var review = {
-                _trail : trail_id,
+                _trail : vm.trailId,
                 context : context
             };
 

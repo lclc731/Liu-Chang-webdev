@@ -18,18 +18,9 @@
             "checkLoggedIn": checkLoggedIn,
             "updateUser": updateUser,
             "deleteUser": deleteUser
-            
-            // "search": search
+
         };
         return services;
-
-        // function search() {
-        //     var url = "/api/search";
-        //     return $http.post(url)
-        //         .then(function (response) {
-        //             return response.data;
-        //         });
-        // }
 
         function checkLoggedIn() {
             var url = "/api/checkLoggedIn";

@@ -9,7 +9,8 @@
     function ReviewService($http) {
         var services = {
             "findAllReviewForTrail" : findAllReviewForTrail,
-            "createReview" : createReview
+            "createReview" : createReview,
+            "deleteReview" : deleteReview
         };
 
         return services;
@@ -28,6 +29,10 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function deleteReview() {
+
         }
     }
 })();

@@ -10,15 +10,22 @@
         var vm = this;
         vm.searchTrail = searchTrail;
         vm.trailView = trailView;
-        vm.trails = [];
+        vm.cityname = $routeParams.cityname;
         var results = [];
         vm.currentUser = loggedin;
+
+        TrailsService
+            .findAllTrailForCity(vm.cityname)
+            .then(
+                function (resultTrails) {
+                    vm.trails = resultTrails;
+                });
+
 
         function searchTrail(city) {
             TrailsService
                 .searchTrails(city)
                 .then(function (data) {
-                    vm.trails = [];
                     results = [];
                     for (var i = 0; i < data.length; i++) {
                         var trail = data[i];
@@ -42,7 +49,7 @@
                 .then(function () {
                     var promises = [];
                     for(var i = 0; i < results.length; i++) {
-                        var promise = TrailsService.findTrailByTrailId(results[i].unique_id);
+                        var promise = TrailsService.findTrailByUniqueId(results[i].unique_id);
                         promises.push(promise);
                     }
 
@@ -60,18 +67,13 @@
                             }
                         })
                         .then(function () {
-                            TrailsService
-                                .findAllTrailForCity(city)
-                                .then(
-                                    function (resultTrails) {
-                                        vm.trails = resultTrails;
-                                    });
+                            $location.url("/trails/search/" + city);
                         });
                 });
         }
 
-        function trailView(unique_id) {
-            $location.url("/trails/" + unique_id);
+        function trailView(trailId) {
+            $location.url("/trails/" + trailId);
         }
     }
 })();

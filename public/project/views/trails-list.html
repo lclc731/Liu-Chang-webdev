@@ -38,12 +38,12 @@
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
                         <input type="text" class="form-control input-lg"
-                               ng-model="model.city" class="form-control"
+                               ng-model="city" class="form-control"
                                placeholder="city">
                         <span class="input-group-btn">
                                 <button class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"
-                                       ng-click="model.searchTrail(model.city)"></i>
+                                       ng-click="model.searchTrail(city)"></i>
                                 </button>
                             </span>
                     </div>
@@ -67,7 +67,7 @@
                         <td class="media-body">
                             <!--<a class="media-heading font-yellow text-bold hidden-xs"-->
                                 <!--ng-click="model.trailView(trail.unique_id)">{{trail.name}}</a>-->
-                            <span><a href="#!/trails/{{trail.unique_id}}" class="label label-info">{{trail.name}}</a></span>
+                            <span><a href="#!/trails/{{trail._id}}" class="label label-info">{{trail.name}}</a></span>
                             <span><strong>Tipo:</strong> Conjugada</span>
                             <span class="hidden-xs"><strong>City:</strong> {{trail.city}} </span>
                             <span class="hidden-xs"><strong>State:</strong> {{trail.state}} </span>

@@ -4,7 +4,8 @@
 module.exports = function(app, models) {
     var unirest = require('unirest');
     app.get('/api/search', searchTrail);
-    app.get('/api/trail/:unique_id', findTrailByTrailId);
+    app.get('/api/trail/:trailId', findTrailByTrailId);
+    app.get('/api/trail/unique/:unique_id', findTrailByUniqueId);
     app.get('/api/city', findAllTrailForCity);
 
     app.post('/api/trail', createTrail);
@@ -23,10 +24,28 @@ module.exports = function(app, models) {
     }
 
     function findTrailByTrailId(req, res) {
+        var trailId = req.params.trailId;
+        models
+            .trailModel
+            .findTrailById(trailId)
+            .then(
+                function (trail) {
+                    if (trail) {
+                        res.json(trail);
+                    } else {
+                        res.send(null);
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+    }
+
+    function findTrailByUniqueId(req, res) {
         var unique_id = req.params.unique_id;
         models
             .trailModel
-            .findTrailByTrailId(unique_id)
+            .findTrailByUniqueId(unique_id)
             .then(
                 function (trail) {
                     if (trail) {

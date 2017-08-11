@@ -6,9 +6,10 @@ module.exports = function(mongoose){
     var Schema = mongoose.Schema;
 
     var reviewSchema = new Schema({
-
-        _trail : String,
-        _reviewer : String,
+        _trail : {type : Schema.Types.ObjectId, ref : 'Trail'},
+        _user : {type : Schema.Types.ObjectId, ref : 'User'},
+        trailName : String,
+        userName : String,
         context : String
     }, {collection: 'review'});
 
