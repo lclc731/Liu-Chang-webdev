@@ -15,11 +15,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li ng-if="!model.currentUser">
                         <a href="#!/login">Login</a>
                     </li>
-                    <li>
+                    <li ng-if="!model.currentUser">
                         <a href="#!/register">Sign up</a>
+                    </li>
+                    <li ng-if="model.currentUser">
+                        <a href="#!/profile">My Profile</a>
                     </li>
                 </ul>
             </div>

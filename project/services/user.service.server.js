@@ -5,6 +5,7 @@ module.exports = function(app, models) {
 
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
     var bcrypt = require('bcrypt-nodejs');
 
     passport.use('LocalStrategy', new LocalStrategy(localStrategy));
@@ -118,6 +119,7 @@ module.exports = function(app, models) {
     function updateUser(req, res) {
         var uid = req.params.uid;
         var new_user = req.body;
+        new_user.password = bcrypt.hashSync(new_user.password);
         models
             .userModel
             .updateUser(uid, new_user)

@@ -14,11 +14,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Login</a>
+                    <li ng-if="!model.currentUser">
+                        <a href="#!/login">Login</a>
                     </li>
-                    <li>
-                        <a href="#">Sign up</a>
+                    <li ng-if="!model.currentUser">
+                        <a href="#!/register">Sign up</a>
+                    </li>
+                    <li ng-if="model.currentUser">
+                        <a href="#!/profile">My profile</a>
                     </li>
                 </ul>
             </div>
@@ -52,21 +55,23 @@
                 </div>
 
                 <div class="col-md-10">
-                    <h3>Write a comment:</h3>
-                    <form accept-charset="UTF-8" action="" method="post">
-                        <input id="ratings-hidden" name="rating" type="hidden" >
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment"
-                                  placeholder="Enter your review here..." rows="5"
-                                  ng-model="model.context"></textarea>
+                    <div ng-if="model.currentUser">
+                        <h3>Write a comment:</h3>
+                        <form accept-charset="UTF-8" action="" method="post">
+                            <input id="ratings-hidden" name="rating" type="hidden" >
+                            <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                                      placeholder="Enter your review here..." rows="5"
+                                      ng-model="model.context"></textarea>
 
-                        <div class="text-right">
-                            <div class="stars starrr" data-rating="0"></div>
-                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                                <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                            <button class="btn btn-success btn-lg" type="submit"
-                                    ng-click="model.createReview(model.context)">Submit</button>
-                        </div>
-                    </form>
+                            <div class="text-right">
+                                <div class="stars starrr" data-rating="0"></div>
+                                <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                                    <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                                <button class="btn btn-success btn-lg" type="submit"
+                                        ng-click="model.createReview(model.context)">Submit</button>
+                            </div>
+                        </form>
+                    </div>
 
                     <div class="page-header">
                         <h3><small class="pull-right">{{model.reviewslength}} comments</small> Comment list </h3>

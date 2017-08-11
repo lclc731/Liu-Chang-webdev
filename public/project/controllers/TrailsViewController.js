@@ -6,10 +6,12 @@
         .module("WebAppProject")
         .controller("TrailsViewController", TrailsViewController);
 
-    function TrailsViewController($routeParams, TrailsService, ReviewService, $sce, $location) {
+    function TrailsViewController(loggedin, $routeParams, TrailsService, ReviewService, $sce, $location) {
         var vm = this;
         var trail_id = $routeParams.unique_id;
         vm.createReview = createReview;
+        vm.currentUser = loggedin;
+
 
         TrailsService
             .findTrailByTrailId(trail_id)

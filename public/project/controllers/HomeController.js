@@ -6,8 +6,9 @@
         .module("WebAppProject")
         .controller("HomeController", HomeController);
 
-    function HomeController() {
+    function HomeController(loggedin) {
         var vm = this;
+        vm.currentUser = loggedin;
         // vm.searchTrail = searchTrail;
         //
         // function searchTrail(city) {

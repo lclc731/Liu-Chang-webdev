@@ -42,7 +42,7 @@ module.exports = function(mongoose){
         return userModel.update({
             _id : userId
         }, {
-            username : user.username,
+            password : user.password,
             firstName : user.firstName,
             lastName : user.lastName,
             email : user.email

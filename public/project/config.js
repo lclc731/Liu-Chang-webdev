@@ -11,7 +11,10 @@
             .when('/', {
                 templateUrl: "/views/home.html",
                 controller: "HomeController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkCurrentUser
+                }
             })
             .when('/login', {
                 templateUrl: "/views/login.html",
@@ -34,12 +37,18 @@
             .when('/trails/search', {
                 templateUrl: "/views/trails-list.html",
                 controller: "TrailsListController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkCurrentUser
+                }
             })
             .when('/trails/:unique_id', {
                 templateUrl: "/views/trails-view.html",
                 controller: "TrailsViewController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkCurrentUser
+                }
             });
     }
 
@@ -53,6 +62,20 @@
                 } else {
                     deferred.reject();
                     $location.url('/login');
+                }
+            });
+        return deferred.promise;
+    };
+
+    var checkCurrentUser = function($q, UserService, $location) {
+        var deferred = $q.defer();
+        UserService
+            .checkLoggedIn()
+            .then(function (user) {
+                if (user !== '0') {
+                    deferred.resolve(user);
+                } else {
+                    deferred.resolve(null);
                 }
             });
         return deferred.promise;

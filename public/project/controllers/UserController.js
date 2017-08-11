@@ -21,7 +21,6 @@
                 .login(username, password)
                 .then(
                     function (user) {
-                        console.log(user);
                         if (user === null || user === undefined || username === "") {
                             vm.error = "Password is not correct.";
                         } else {
@@ -80,11 +79,53 @@
         }
     }
 
-    function ProfileController(loggedin, $location, UserService) {
+    function ProfileController(loggedin, $location, UserService, $timeout) {
         var vm = this;
         vm.userId = loggedin._id;
         vm.user = loggedin;
+        vm.updateUser = updateUser;
+        vm.updatePassword = updatePassword;
         vm.logout = logout;
+
+        function updateUser(user) {
+            UserService
+                .updateUser(vm.user._id, user)
+                .then(
+                    function (newUser) {
+                        if (newUser) {
+                            vm.updated = "Personal profile changes saved!";
+                        }
+                    });
+
+            $timeout(function () {
+                vm.updated = null;
+            }, 3000);
+        }
+
+        function updatePassword(user, password, vpassword) {
+            if (password !== vpassword) {
+                vm.error = "Password does not match.";
+
+                $timeout(function () {
+                    vm.error = null;
+                }, 2000);
+                return;
+            }
+
+            user.password = password;
+            UserService
+                .updateUser(vm.user._id, user)
+                .then(
+                    function (newUser) {
+                        if (newUser) {
+                            vm.updated = "Password change saved!";
+                        }
+                    });
+
+            $timeout(function () {
+                vm.updated = null;
+            }, 3000);
+        }
 
         function logout() {
             UserService

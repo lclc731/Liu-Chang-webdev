@@ -6,12 +6,13 @@
         .module("WebAppProject")
         .controller("TrailsListController", TrailsListController);
 
-    function TrailsListController($routeParams, TrailsService, $location, $q) {
+    function TrailsListController(loggedin, $routeParams, TrailsService, $location, $q) {
         var vm = this;
         vm.searchTrail = searchTrail;
         vm.trailView = trailView;
         vm.trails = [];
         var results = [];
+        vm.currentUser = loggedin;
 
         function searchTrail(city) {
             TrailsService
