@@ -4,7 +4,6 @@
 module.exports = function(app, models) {
 
     app.get('/api/trail/:trailId/review', findAllReviewForTrail);
-
     app.post('/api/review', createReview);
 
 
@@ -28,8 +27,8 @@ module.exports = function(app, models) {
             .reviewModel
             .createReview(review)
             .then(
-                function (review) {
-                    res.json(review);
+                function (status) {
+                    res.sendStatus(status);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);

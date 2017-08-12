@@ -57,18 +57,18 @@
                 <div class="col-md-10">
                     <div ng-if="model.currentUser">
                         <h3>Write a comment:</h3>
-                        <form accept-charset="UTF-8" action="" method="post">
+                        <form accept-charset="UTF-8" action="" method="">
                             <input id="ratings-hidden" name="rating" type="hidden" >
                             <textarea class="form-control animated" cols="50" id="new-review" name="comment"
                                       placeholder="Enter your review here..." rows="5"
-                                      ng-model="model.context"></textarea>
+                                      ng-model="context"></textarea>
 
                             <div class="text-right">
                                 <div class="stars starrr" data-rating="0"></div>
                                 <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                                     <span class="glyphicon glyphicon-remove"></span>Cancel</a>
                                 <button class="btn btn-success btn-lg" type="submit"
-                                        ng-click="model.createReview(model.context)">Submit</button>
+                                        ng-click="model.createReview(context)">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -81,8 +81,8 @@
                             <!--<p class="pull-right"><small>5 days ago</small></p>-->
                             <div class="media-body">
 
-                                <h4 class="media-heading user_name">{{review._reviewer}}</h4>
-                                <p>{{review.context}}</p>
+                                <h5 class="media-heading user_name">{{review.userName}}: </h5>
+                                <p>  {{review.context}}</p>
 
                                 <!--<p><small><a href="">Like</a> - <a href="">Share</a></small></p>-->
                             </div>

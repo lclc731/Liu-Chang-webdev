@@ -23,6 +23,8 @@
 
 
         function searchTrail(city) {
+            city = decodeURIComponent(city);
+
             TrailsService
                 .searchTrails(city)
                 .then(function (data) {

@@ -26,6 +26,14 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
+            .when('/admin', {
+                templateUrl: "/views/admin.html",
+                controller: "AdminController",
+                controllerAs: "model",
+                // resolve: {
+                //     admin: checkAdmin
+                // }
+            })
             .when('/profile', {
                 templateUrl: "/views/profile.html",
                 controller: "ProfileController",
@@ -52,6 +60,21 @@
             });
     }
 
+    var checkAdmin = function($q, UserService, $location) {
+        var deferred = $q.defer();
+        UserService
+            .checkAdmin()
+            .then(function (user) {
+                if (user !== '0') {
+                    deferred.resolve(user);
+                } else {
+                    deferred.reject();
+                    $location.url('/login');
+                }
+            });
+        return deferred.promise;
+    };
+
     var checkLoggedIn = function($q, UserService, $location) {
         var deferred = $q.defer();
         UserService
@@ -76,6 +99,7 @@
                     deferred.resolve(user);
                 } else {
                     deferred.resolve(null);
+                    // $location.url('/');
                 }
             });
         return deferred.promise;

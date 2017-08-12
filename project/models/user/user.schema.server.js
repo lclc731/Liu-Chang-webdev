@@ -11,6 +11,7 @@ module.exports = function(mongoose){
         firstName : String,
         lastName : String,
         email : String,
+        roles : [{type: String, default: 'USER', enum: ['USER', 'ADMIN']}],
         dateCreated : {
             type : Date,
             default: Date.now

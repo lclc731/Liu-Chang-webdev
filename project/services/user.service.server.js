@@ -18,6 +18,7 @@ module.exports = function(app, models) {
     app.get('/api/user', findUserByUsername);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/credentials', findUserByCredentials);
+    app.get('/api/alluser', isAdmin, findAllUsers);
 
     // POST Calls.
     app.post('/api/user', createUsers);
@@ -26,10 +27,12 @@ module.exports = function(app, models) {
     app.put('/api/user/:uid', updateUser);
 
     // DELETE Calls.
-    app.delete('/api/user/:uid', deleteUser);
+    app.delete('/api/user/:uid', isAdmin, deleteUser);
+    // app.delete('/api/unregister/:uid', isSameUser, unregister);
 
     app.post('/api/login', passport.authenticate('LocalStrategy'), login);
     app.get('/api/checkLoggedIn', checkLoggedIn);
+    app.get('/api/checkAdmin', checkAdmin);
     app.post('/api/register', register);
     app.post('/api/logout', logout);
 
@@ -109,6 +112,7 @@ module.exports = function(app, models) {
             );
     }
 
+
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
@@ -162,6 +166,27 @@ module.exports = function(app, models) {
                     res.sendStatus(400).send(error);
                 }
             );
+    }
+
+    function findAllUsers(req, res) {
+        models
+            .userModel
+            .findAllUsers()
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+    }
+
+    function isAdmin(req, res, next) {
+        if (req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
     }
 
     function updateUser(req, res) {
@@ -269,7 +294,12 @@ module.exports = function(app, models) {
         }
     }
 
-
-
+    function checkAdmin(req, res) {
+        if (req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
+    }
 
 };

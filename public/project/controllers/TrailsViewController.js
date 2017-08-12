@@ -31,13 +31,19 @@
         function createReview(context) {
             var review = {
                 _trail : vm.trailId,
+                _user : vm.currentUser._id,
+                trailName : vm.trail.name,
+                userName : vm.currentUser.username,
                 context : context
             };
 
             ReviewService
                 .createReview(review)
-                .then(function (newreview) {
-                    // $location.url("/trails/" + trail_id);
+                .then(function (status) {
+                    if (status) {
+                        $location.url("/trails/" + vm.trailId);
+                    }
+
                         // TrailsService
                         //     .insertReviewToTrail(newreview)
                         //     .then(function () {

@@ -10,6 +10,7 @@ module.exports = function(mongoose){
         'findUserById' : findUserById,
         'findUserByUsername' : findUserByUsername,
         'findUserByCredentials' : findUserByCredentials,
+        'findAllUsers' : findAllUsers,
         'updateUser' : updateUser,
         'deleteUser' : deleteUser,
         'findUserByFacebookId': findUserByFacebookId
@@ -20,6 +21,7 @@ module.exports = function(mongoose){
     // Function Definition Section
 
     function createUser(user){
+        user.roles = ['USER'];
         return userModel.create(user);
     }
 
@@ -37,6 +39,10 @@ module.exports = function(mongoose){
             username : username,
             password : password
         });
+    }
+    
+    function findAllUsers() {
+        return userModel.find();
     }
 
     function updateUser(userId, user){

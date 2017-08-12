@@ -30,7 +30,6 @@
         <!-- /.container -->
     </nav>
 
-
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -45,7 +44,7 @@
                                     <i class="glyphicon glyphicon-search"
                                        ng-click="model.searchTrail(city)"></i>
                                 </button>
-                            </span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -67,13 +66,12 @@
                         <td class="media-body">
                             <!--<a class="media-heading font-yellow text-bold hidden-xs"-->
                                 <!--ng-click="model.trailView(trail.unique_id)">{{trail.name}}</a>-->
-                            <span><a href="#!/trails/{{trail._id}}" class="label label-info">{{trail.name}}</a></span>
-                            <span><strong>Tipo:</strong> Conjugada</span>
-                            <span class="hidden-xs"><strong>City:</strong> {{trail.city}} </span>
-                            <span class="hidden-xs"><strong>State:</strong> {{trail.state}} </span>
+                            <span><strong><a href="#!/trails/{{trail._id}}" class="label label-info">{{trail.name}}</a></strong></span>
+                            <span class="hidden-xs"><strong>   City: </strong> {{trail.city}} </span>
+                            <span class="hidden-xs"><strong>   State: </strong> {{trail.state}}      </span>
 \
-                            <span class="hidden-xs glyphicon glyphicon-thumbs-up"> 10 </span>
-                            <span class="hidden-xs glyphicon glyphicon-thumbs-down"> 5 </span>
+                            <span class="hidden-xs glyphicon glyphicon-thumbs-up"></span><span><strong>    {{trail.likes}}</strong></span>
+                            <!--<span class="hidden-xs glyphicon glyphicon-thumbs-down"> 5 </span>-->
                         </td>
                     </tr>
                     </tbody>

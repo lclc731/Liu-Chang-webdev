@@ -12,6 +12,7 @@
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
+            "findAllUsers": findAllUsers,
             "login": login,
             "logout": logout,
             "register": register,
@@ -19,11 +20,22 @@
             "updateUser": updateUser,
             "deleteUser": deleteUser
 
+            // "search": search
         };
         return services;
 
+
         function checkLoggedIn() {
             var url = "/api/checkLoggedIn";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+
+        function checkAdmin() {
+            var url = "/api/checkAdmin";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
@@ -65,6 +77,14 @@
 
         function findUserByCredentials(username, password) {
             var url = "/api/user/credentials?username=" + username + "&password=" + password;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findAllUsers() {
+            var url = "/api/alluser";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
