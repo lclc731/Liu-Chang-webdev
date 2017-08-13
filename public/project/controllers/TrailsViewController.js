@@ -10,7 +10,9 @@
         var vm = this;
         vm.trailId = $routeParams.trailId;
         vm.createReview = createReview;
+        vm.deleteReview = deleteReview;
         vm.currentUser = loggedin;
+        vm.init = init;
 
         TrailsService
             .findTrailByTrailId(vm.trailId)
@@ -20,13 +22,21 @@
                 vm.mapurl = $sce.trustAsResourceUrl(maphtml);
             });
 
+        function init() {
+            findAllReviews();
+        }
 
-        ReviewService
-            .findAllReviewForTrail(vm.trailId)
-            .then(function (reviews) {
-                vm.reviews = reviews;
-                vm.reviewslength = reviews.length;
-            });
+        init();
+
+        function findAllReviews() {
+            ReviewService
+                .findAllReviewForTrail(vm.trailId)
+                .then(function (reviews) {
+                    vm.reviews = reviews;
+                    vm.reviewslength = reviews.length;
+                });
+        }
+
 
         function createReview(context) {
             var review = {
@@ -39,9 +49,9 @@
 
             ReviewService
                 .createReview(review)
-                .then(function (status) {
-                    if (status) {
-                        $location.url("/trails/" + vm.trailId);
+                .then(function (review) {
+                    if (review) {
+                        findAllReviews();
                     }
 
                         // TrailsService
@@ -50,6 +60,14 @@
                         //
                         //     })
                     });
+        }
+
+        function deleteReview(review) {
+            ReviewService
+                .deleteReview(review._id)
+                .then(function () {
+                    findAllReviews();
+                });
         }
     }
 })();

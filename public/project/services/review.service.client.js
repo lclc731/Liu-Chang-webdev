@@ -31,8 +31,12 @@
                 });
         }
 
-        function deleteReview() {
-
+        function deleteReview(reviewId) {
+            var url = "/api/review/" + reviewId;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();
