@@ -30,54 +30,50 @@
         <!-- /.container -->
     </nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
+    <nav class="navbar navbar-default" style="margin-top: 5%">
+        <div class="container-fluid">
+            <div class="navbar-header col-xs-6">
                 <h4>Search by city:</h4>
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" class="form-control input-lg"
-                               ng-model="city" class="form-control"
-                               placeholder="city">
-                        <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button">
+            </div>
+            <div class="input-group col-xs-8" style="margin-left: 2%; margin-bottom: 1%">
+                <input type="text" class="form-control input-md"
+                       ng-model="city" class="form-control"
+                       placeholder="City">
+                <span class="input-group-btn">
+                                <button class="btn btn-info btn-md" type="button">
                                     <i class="glyphicon glyphicon-search"
                                        ng-click="model.searchTrail(city)"></i>
                                 </button>
                         </span>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-
-
+    </nav>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <table id="tableReport" class="table table-hover table-striped"
-                       ng-repeat="trail in model.trails">
-                    <tbody>
-                    <tr class="media" id="carga_30" data-id="30">
+                <table class="table table-hover table-striped" style="margin-left: 1.5%">
+                    <thead>
+                        <th>Trail Name</th>
+                        <th>Trail Length</th>
+                        <th class="hidden-xs">City</th>
+                        <th class="hidden-xs">State</th>
+                        <th class="hidden-xs">Likes</th>
+                    </thead>
+                    <tbody style="height:48px" ng-repeat="trail in model.trails" >
+                    <tr style="height:48px">
                         <!--<td class="media-left">-->
                             <!--<h2>30</h2>-->
                         <!--</td>-->
-                        <td class="media-body">
-                            <!--<a class="media-heading font-yellow text-bold hidden-xs"-->
-                                <!--ng-click="model.trailView(trail.unique_id)">{{trail.name}}</a>-->
-                            <span><strong><a href="#!/trails/{{trail._id}}" class="label label-info">{{trail.name}}</a></strong></span>
-                            <span class="hidden-xs"><strong>   City: </strong> {{trail.city}} </span>
-                            <span class="hidden-xs"><strong>   State: </strong> {{trail.state}}      </span>
-\
-                            <span class="hidden-xs glyphicon glyphicon-thumbs-up"></span><span><strong>    {{trail.likes}}</strong></span>
+                        <td><span><strong><a href="#!/trails/{{trail._id}}" class="label label-info" style="font-size: 14px;">{{trail.name}}</a></strong></span></td>
+                        <td><span>{{trail.length}} miles</span></td>
+                        <td><span class="hidden-xs">{{trail.city}} </span></td>
+                        <td><span class="hidden-xs">{{trail.state}} </span></td>
+                        <td><span class="hidden-xs glyphicon glyphicon-thumbs-up"></span><span class="hidden-xs" style="margin-left: 2%"><strong>  {{trail.likes}}</strong></span></td>
                             <!--<span class="hidden-xs glyphicon glyphicon-thumbs-down"> 5 </span>-->
-                        </td>
+                        <!--</td>-->
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            
         </div>
     </div>
 </div>

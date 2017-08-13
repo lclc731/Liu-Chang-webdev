@@ -7,6 +7,7 @@ module.exports = function(app, models) {
     var LocalStrategy = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
     var bcrypt = require('bcrypt-nodejs');
+    const saltRounds = 10;
 
     passport.use('LocalStrategy', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
