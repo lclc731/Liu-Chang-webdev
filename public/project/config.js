@@ -30,9 +30,9 @@
                 templateUrl: "/views/admin.html",
                 controller: "AdminController",
                 controllerAs: "model",
-                // resolve: {
-                //     admin: checkAdmin
-                // }
+                resolve: {
+                    admin: checkAdmin
+                }
             })
             .when('/profile', {
                 templateUrl: "/views/profile.html",

@@ -17,6 +17,7 @@
             "logout": logout,
             "register": register,
             "checkLoggedIn": checkLoggedIn,
+            "checkAdmin": checkAdmin,
             "updateUser": updateUser,
             "deleteUser": deleteUser
 
