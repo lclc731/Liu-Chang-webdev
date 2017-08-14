@@ -7,15 +7,13 @@
 module.exports = function() {
     var connectionString =  null;
 
-    // if (process.env.MONGODB_URI) {
-    //     connectionString = 'mongodb://webdev:123456@ds149221.mlab.com:49221/heroku_017f0qqm';
-    // }
-    // else
-    // {
-    //     connectionString = 'mongodb://localhost:27017/cs5610';
-    // }
-
-    connectionString = 'mongodb://localhost:27017/webproject';
+    if (process.env.MONGODB_URI) {
+        connectionString = 'mongodb://webproject:123456@ds149221.mlab.com:49221/heroku_017f0qqm';
+    }
+    else
+    {
+        connectionString = 'mongodb://localhost:27017/webproject';
+    }
 
     var mongoose = require('mongoose');
     mongoose.connect(connectionString);
