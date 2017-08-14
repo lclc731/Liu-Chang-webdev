@@ -19,6 +19,7 @@
             "checkLoggedIn": checkLoggedIn,
             "checkAdmin": checkAdmin,
             "updateUser": updateUser,
+            "updateUserPassword": updateUserPassword,
             "deleteUser": deleteUser
 
             // "search": search
@@ -114,6 +115,14 @@
 
         function updateUser(userId, user) {
             var url = "/api/user/" + userId;
+            return $http.put(url, user)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function updateUserPassword(userId, user) {
+            var url = "/api/user/" + userId + "/password";
             return $http.put(url, user)
                 .then(function (response) {
                     return response.data;

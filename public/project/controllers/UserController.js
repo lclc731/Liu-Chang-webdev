@@ -113,7 +113,7 @@
 
             user.password = password;
             UserService
-                .updateUser(vm.user._id, user)
+                .updateUserPassword(vm.user._id, user)
                 .then(
                     function (newUser) {
                         if (newUser) {

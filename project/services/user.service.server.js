@@ -26,6 +26,7 @@ module.exports = function(app, models) {
 
     // PUT Calls.
     app.put('/api/user/:uid', updateUser);
+    app.put('/api/user/:uid/password', updateUserPassword);
 
     // DELETE Calls.
     app.delete('/api/user/:uid', isAdmin, deleteUser);
@@ -64,7 +65,6 @@ module.exports = function(app, models) {
                     }
                     else{
                         var names = profile.displayName.split(" ");
-                        console.log(names);
                         var newUser={
                             username:  profile.id,
                             password: "a",
@@ -193,7 +193,23 @@ module.exports = function(app, models) {
     function updateUser(req, res) {
         var uid = req.params.uid;
         var new_user = req.body;
-        new_user.password = bcrypt.hashSync(new_user.password);
+        models
+            .userModel
+            .updateUser(uid, new_user)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+    }
+
+    function updateUserPassword(req, res) {
+        var uid = req.params.uid;
+        var new_user = req.body;
+        var salt = bcrypt.genSaltSync(saltRounds);
+        new_user.password = bcrypt.hashSync(new_user.password, salt);
         models
             .userModel
             .updateUser(uid, new_user)
@@ -272,7 +288,9 @@ module.exports = function(app, models) {
 
     function register(req, res) {
         var user = req.body;
-        user.password = bcrypt.hashSync(user.password);
+        var salt = bcrypt.genSaltSync(saltRounds);
+        var hash = bcrypt.hashSync(user.password, salt);
+        user.password = hash;
         models
             .userModel
             .createUser(user)
