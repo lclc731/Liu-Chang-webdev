@@ -10,7 +10,8 @@
         var services = {
             "findAllReviewForTrail" : findAllReviewForTrail,
             "createReview" : createReview,
-            "deleteReview" : deleteReview
+            "deleteReview" : deleteReview,
+            "updateReview" : updateReview
         };
 
         return services;
@@ -34,6 +35,14 @@
         function deleteReview(reviewId) {
             var url = "/api/review/" + reviewId;
             return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function updateReview(reviewId, review) {
+            var url = "/api/review/" + reviewId;
+            return $http.put(url, review)
                 .then(function (response) {
                     return response.data;
                 });

@@ -10,6 +10,7 @@ module.exports = function(app, models) {
 
     app.post('/api/trail', createTrail);
 
+    app.put('/api/trail/:trailId', updateTrail);
 
     
     function searchTrail(req, res) {
@@ -87,6 +88,21 @@ module.exports = function(app, models) {
                     res.sendStatus(400).send(error);
                 });
 
+    }
+
+    function updateTrail(req, res) {
+        var trailId = req.params.trailId;
+        var trail = req.body;
+        models
+            .trailModel
+            .updateTrail(trailId, trail)
+            .then(
+                function (trail) {
+                    res.json(trail);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
 };

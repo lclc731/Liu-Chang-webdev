@@ -6,7 +6,7 @@ module.exports = function(app, models) {
     app.get('/api/trail/:trailId/review', findAllReviewForTrail);
     app.post('/api/review', createReview);
     app.delete('/api/review/:reviewId', deleteReview);
-
+    app.put('/api/review/:reviewId', updateReview);
 
     function findAllReviewForTrail(req, res) {
         var trailId = req.params.trailId;
@@ -50,6 +50,20 @@ module.exports = function(app, models) {
                 });
     }
 
+    function updateReview(req, res) {
+        var reviewId = req.params.reviewId;
+        var review = req.body;
+        models
+            .trailModel
+            .updateTrail(reviewId, review)
+            .then(
+                function (review) {
+                    res.json(review);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+    }
 };
 
 

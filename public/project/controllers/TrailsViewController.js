@@ -6,7 +6,7 @@
         .module("WebAppProject")
         .controller("TrailsViewController", TrailsViewController);
 
-    function TrailsViewController(loggedin, $routeParams, TrailsService, ReviewService, $sce, $location) {
+    function TrailsViewController(loggedin, $routeParams, TrailsService, ReviewService, $sce, $http) {
         var vm = this;
         vm.trailId = $routeParams.trailId;
         vm.createReview = createReview;
@@ -20,6 +20,22 @@
                 vm.trail = trail;
                 var maphtml = "https://www.google.com/maps/embed/v1/search?key=AIzaSyB7hHsKvA3_Zz28HTPmIdS5dOmHjgM_UMM&q=" + vm.trail.lat + "," + vm.trail.lon;
                 vm.mapurl = $sce.trustAsResourceUrl(maphtml);
+
+                if (vm.trail.lat !== 0 && vm.trail.lon !== 0) {
+                    TrailsService
+                        .findWeatherForTrail(vm.trail.lat, vm.trail.lon)
+                        .then(function (data) {
+                            var weather = {
+                                cloud : data.current.cloud,
+                                humidity : data.current.humidity,
+                                time : data.current.last_updated,
+                                temp : data.current.temp_f,
+                                wind : data.current.wind_mph
+                            };
+                            vm.weather = weather;
+                        });
+                }
+
             });
 
         function init() {

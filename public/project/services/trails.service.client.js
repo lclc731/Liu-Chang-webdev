@@ -6,13 +6,16 @@
         .module("WebAppProject")
         .factory('TrailsService', TrailsService);
 
-    function TrailsService($http) {
+    function TrailsService($http, $sce) {
         var services = {
             "searchTrails" : searchTrails,
             "findTrailByTrailId" : findTrailByTrailId,
             "findTrailByUniqueId" : findTrailByUniqueId,
             "findAllTrailForCity" : findAllTrailForCity,
-            "createTrail" : createTrail
+            // "findUserLike" : findUserLike,
+            "findWeatherForTrail" : findWeatherForTrail,
+            "createTrail" : createTrail,
+            "updateTrail" : updateTrail
         };
 
         return services;
@@ -49,9 +52,33 @@
                 });
         }
 
+        // function findUserLike(trailId, userId) {
+        //     var url = "/api/trail/" + trailId + "/user/" + userId;
+        //     return $http.get(url)
+        //         .then(function (response) {
+        //             return response.data;
+        //         });
+        // }
+
+        function findWeatherForTrail(lat, lon) {
+            var url = "https://api.apixu.com/v1/current.json?key=8f673ddba5f3490aa1284011171408&q=" + lat + "," + lon;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
         function createTrail(trail) {
             var url = "/api/trail";
             return $http.post(url, trail)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function updateTrail(trailId, trail) {
+            var url = "/api/trail/" + trailId;
+            return $http.put(url, trail)
                 .then(function (response) {
                     return response.data;
                 });
