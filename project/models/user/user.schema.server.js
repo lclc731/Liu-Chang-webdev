@@ -2,7 +2,6 @@
  * Created by ChangLiu on 7/19/17.
  */
 module.exports = function(mongoose){
-    var trailSchema = require("../trail/trail.schema.server.js")(mongoose);
     var Schema = mongoose.Schema;
 
     var userSchema = new Schema({
@@ -16,10 +15,6 @@ module.exports = function(mongoose){
             type : Date,
             default: Date.now
         },
-        trails : [{
-            type: Schema.Types.ObjectId,
-            ref : 'Trail'
-        }],
 
         facebook: {
             id: String,

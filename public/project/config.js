@@ -90,7 +90,7 @@
         return deferred.promise;
     };
 
-    var checkCurrentUser = function($q, UserService, $location) {
+    var checkCurrentUser = function($q, UserService) {
         var deferred = $q.defer();
         UserService
             .checkLoggedIn()
@@ -99,7 +99,6 @@
                     deferred.resolve(user);
                 } else {
                     deferred.resolve(null);
-                    // $location.url('/');
                 }
             });
         return deferred.promise;

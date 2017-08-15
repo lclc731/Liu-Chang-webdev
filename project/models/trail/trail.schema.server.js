@@ -15,8 +15,7 @@ module.exports = function(mongoose){
         description : String,
         length : String,
         url : String,
-        image : String,
-        likes : Number
+        image : String
 
     }, {collection: 'trail'});
 

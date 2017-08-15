@@ -21,8 +21,6 @@
             "updateUser": updateUser,
             "updateUserPassword": updateUserPassword,
             "deleteUser": deleteUser
-
-            // "search": search
         };
         return services;
 

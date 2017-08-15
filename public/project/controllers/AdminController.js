@@ -6,7 +6,7 @@
         .module("WebAppProject")
         .controller("AdminController", AdminController);
     
-    function AdminController(UserService, $location) {
+    function AdminController(UserService) {
         var vm = this;
         vm.deleteUser = deleteUser;
         vm.init = init;

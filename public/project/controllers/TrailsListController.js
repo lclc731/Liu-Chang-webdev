@@ -23,8 +23,7 @@
 
 
         function searchTrail(city) {
-            city = decodeURIComponent(city);
-
+            city = city.substring(0, 1).toUpperCase() + city.substring(1).toLowerCase();
             TrailsService
                 .searchTrails(city)
                 .then(function (data) {
@@ -42,8 +41,7 @@
                             description : trail.activities[0].description,
                             length : trail.activities[0].length,
                             url : trail.activities[0].url,
-                            image : trail.activities[0].thumbnail,
-                            likes : 0
+                            image : trail.activities[0].thumbnail
                         };
                         results.push(newTrail);
                     }

@@ -25,9 +25,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
 
     <div class="container">
@@ -44,12 +42,6 @@
             <div class="col-sm-6 col-xs-12">
                 <div class="well" class="col-sm-6 col-xs-12">
                     <div ng-show="model.trail.image"> <img src="{{model.trail.image}}" class="col-sm-12 col-xs-12" style="padding-bottom:5%;"> </div>
-                    <!--<h4>Description:</h4>-->
-                    <!--<p>{{model.trail.description}}</p>-->
-                    <!--<h5>Length: {{model.trail.length}} miles</h5>-->
-                    <!--<h6>City: {{model.trail.city}}</h6>-->
-                    <!--<h6>State: {{model.trail.state}}</h6>-->
-                    <!--<button class="glyphicon glyphicon-thumbs-up"></button>-->
                     <div>
                         <h4>Description:</h4>
                         <p>{{model.trail.description}}</p>
@@ -60,8 +52,6 @@
                         <h5 style="margin-top:5%;">
                             <a href="{{model.trail.url}}">Website Link Click Here</a>
                         </h5>
-                        <h5><button class="glyphicon glyphicon-thumbs-up button-lg" style="height:30px;color:#CC3819"
-                                    ng-click="model.likeTrail(model.liked)"></button> {{model.liked}}</h5>
                     </div>
 
                 </div>
@@ -115,8 +105,13 @@
                         <h4 class="media-heading user_name">{{review.userName}}:</h4>
                         <p style="margin-left: 3%"> "{{review.context}}"</p>
                     </div>
-                    <div class="col-xs-2">
-                        <button ng-if="model.currentUser" class="btn btn-danger btn-xs glyphicon glyphicon-trash pull-right"
+                    <!--<div class="col-xs-1">-->
+                        <!--<button ng-if="model.currentUser && model.currentUser.username === review.userName" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right"-->
+                                <!--ng-click="model.updateReview(review, review._id)">-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <div class="col-xs-1">
+                        <button ng-if="model.currentUser && model.currentUser.username === review.userName" class="btn btn-danger btn-xs glyphicon glyphicon-trash pull-right"
                                 ng-click="model.deleteReview(review)">
                         </button>
                     </div>

@@ -25,9 +25,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
 
     <nav class="navbar navbar-default" style="margin-top: 5%">
@@ -57,20 +55,13 @@
                         <th>Trail Length</th>
                         <th class="hidden-xs">City</th>
                         <th class="hidden-xs">State</th>
-                        <th class="hidden-xs">Likes</th>
                     </thead>
                     <tbody style="height:48px" ng-repeat="trail in model.trails" >
                     <tr style="height:48px">
-                        <!--<td class="media-left">-->
-                            <!--<h2>30</h2>-->
-                        <!--</td>-->
                         <td><span><strong><a href="#!/trails/{{trail._id}}" class="label label-info" style="font-size: 14px;">{{trail.name}}</a></strong></span></td>
                         <td><span>{{trail.length}} miles</span></td>
                         <td><span class="hidden-xs">{{trail.city}} </span></td>
                         <td><span class="hidden-xs">{{trail.state}} </span></td>
-                        <td><span class="hidden-xs glyphicon glyphicon-thumbs-up"></span><span class="hidden-xs" style="margin-left: 2%"><strong>  {{trail.likes}}</strong></span></td>
-                            <!--<span class="hidden-xs glyphicon glyphicon-thumbs-down"> 5 </span>-->
-                        <!--</td>-->
                     </tr>
                     </tbody>
                 </table>

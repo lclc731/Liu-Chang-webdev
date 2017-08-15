@@ -52,34 +52,9 @@ module.exports = function(mongoose){
             password : user.password,
             firstName : user.firstName,
             lastName : user.lastName,
-            email : user.email,
-            trails : user.trails
+            email : user.email
         });
     }
-
-    // function removeWebsiteFromUser(userId, websiteId){
-    //     // db.user.update({_id : ObjectId("583cf3287ac013080c4adee5")}, {$push : { "websites" : ObjectId("583cf43693b914082152cc3c")}})
-    //     userModel
-    //         .findById(userId)
-    //         .then(
-    //             function(user){
-    //                 user.websites.pull(websiteId);
-    //                 user.save();
-    //             },
-    //             function(error){
-    //                 console.log(error);
-    //             }
-    //         );
-    // }
-
-    // function insertWebsiteToUser(userId, websiteId){
-    //     userModel
-    //         .findById(userId)
-    //         .then(function (user) {
-    //             user.websites.push(websiteId);
-    //             user.save();
-    //         });
-    // }
 
     function deleteUser(userId){
         return userModel.remove({

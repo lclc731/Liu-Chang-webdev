@@ -11,6 +11,7 @@
         vm.trailId = $routeParams.trailId;
         vm.createReview = createReview;
         vm.deleteReview = deleteReview;
+        vm.updateReview = updateReview;
         vm.currentUser = loggedin;
         vm.init = init;
 
@@ -69,18 +70,20 @@
                     if (review) {
                         findAllReviews();
                     }
-
-                        // TrailsService
-                        //     .insertReviewToTrail(newreview)
-                        //     .then(function () {
-                        //
-                        //     })
                     });
         }
 
         function deleteReview(review) {
             ReviewService
                 .deleteReview(review._id)
+                .then(function () {
+                    findAllReviews();
+                });
+        }
+
+        function updateReview(review) {
+            ReviewService
+                .updateReview(review, review._id)
                 .then(function () {
                     findAllReviews();
                 });

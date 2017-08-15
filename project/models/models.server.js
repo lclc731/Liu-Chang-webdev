@@ -19,7 +19,7 @@ module.exports = function() {
     mongoose.connect(connectionString);
     mongoose.Promise = require('q').Promise;
 
-    var userModel = require("./user/user.model.server.js")(mongoose, trailModel);
+    var userModel = require("./user/user.model.server.js")(mongoose);
     var trailModel = require("./trail/trail.model.server.js")(mongoose, userModel);
     var reviewModel =  require("./review/review.model.server")(mongoose, trailModel);
 

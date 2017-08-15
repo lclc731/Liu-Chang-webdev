@@ -15,7 +15,6 @@ module.exports = function(app, models) {
 
 
     // GET Calls.
-    // app.get('/api/user?username=username', findUserByUsername);
     app.get('/api/user', findUserByUsername);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/credentials', findUserByCredentials);
@@ -30,7 +29,6 @@ module.exports = function(app, models) {
 
     // DELETE Calls.
     app.delete('/api/user/:uid', isAdmin, deleteUser);
-    // app.delete('/api/unregister/:uid', isSameUser, unregister);
 
     app.post('/api/login', passport.authenticate('LocalStrategy'), login);
     app.get('/api/checkLoggedIn', checkLoggedIn);
