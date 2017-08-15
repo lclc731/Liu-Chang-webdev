@@ -47,7 +47,7 @@ module.exports = function(app, models) {
     var facebookConfig = {
         clientID : process.env. FACEBOOK_CLIENT_ID || '1907240392874501',
         clientSecret : process.env. FACEBOOK_CLIENT_SECRET || '94332c7c757c7d6fbfcfbfb49032108b',
-        callbackURL : process.env. FACEBOOK_CALLBACK_URL || ' https://cs5610-webdev-changliu.herokuapp.com/auth/facebook/callback'
+        callbackURL : process.env. FACEBOOK_CALLBACK_URL || ' https://cs5610webdevchangliu.herokuapp.com/auth/facebook/callback'
     };
 
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
